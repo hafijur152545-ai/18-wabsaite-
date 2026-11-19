@@ -26,7 +26,7 @@ footer{margin-top:22px;color:var(--mute);font-size:12px}
 .visit-box{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;font-size:14px;color:var(--mute)}
 .visit-box b{color:var(--text);font-size:20px;display:block}
 /* PASSWORD + ADMIN */
-.overlay{position:fixed;inset:0;z-index:99;display:none;background:rgba(3,2,12,.92);overflow-y:auto;padding:0}
+.overlay{position:fixed;inset:0;z-index:99;display:none;background:#0a081a;overflow-y:auto;padding:0}
 .overlay.open{display:block}
 .passWrap{min-height:100vh;display:grid;place-items:center;padding:20px}
 .passBox{width:100%;max-width:360px;background:#1b1838;border:1px solid #332a5e;border-radius:22px;padding:26px;text-align:center}
@@ -91,11 +91,11 @@ footer{margin-top:22px;color:var(--mute);font-size:12px}
   <div class="avatar"><div><img src="profile.jpg" alt="Amelia profile photo"></div></div>
   <h1>Amelia</h1><p class="sub">Official Page · 18+</p>
   <div class="bio" id="bio">Welcome to my official page. Here you will find all my latest updates and links in one place.</div>
-  <a class="btn b1" href="#" id="l1"><span class="ic">🎥</span><span><b>Watch Video Page</b><small>Go to my content platform</small></span><span class="go">›</span></a>
-  <a class="btn b2" href="#" id="l2"><span class="ic">💬</span><span><b>Chat Community</b><small>Join on Telegram / Discord</small></span><span class="go">›</span></a>
-  <a class="btn b3" href="#" id="l3"><span class="ic">📞</span><span><b>Contact Me</b><small>Send a message on WhatsApp</small></span><span class="go">›</span></a>
+  <a class="btn b1" href="#" id="l1"><span class="ic">🎥</span><span><b>Free Video Call</b><small>Tap to start a free video call</small></span><span class="go">›</span></a>
+  <a class="btn b2" href="#" id="l2"><span class="ic">💬</span><span><b>Personal Text</b><small>Chat with me personally</small></span><span class="go">›</span></a>
+  <a class="btn b3" href="#" id="l3"><span class="ic">📞</span><span><b>Contact Free Call</b><small>Call me for free now</small></span><span class="go">›</span></a>
   <div class="trust"><div id="lockBtn"><span>🔒</span>Safe Link</div><div><span>⚡</span>No Sign-up Needed</div><div><span>🔞</span>18+ Only</div></div>
-  <div class="visit-box">👀 Daily Visitors<b id="dailyCount">0</b><span id="todayLabel">Today</span></div>
+  <!-- Daily Visitors box removed from main page - only in Admin > Visitors -->
   <footer>© Amelia · All content is for adults and consensual</footer>
 </main>
 
@@ -123,7 +123,7 @@ footer{margin-top:22px;color:var(--mute);font-size:12px}
 
   <!-- VISITORS TAB -->
   <div class="tabContent" id="tab-visitors" style="display:none">
-    <p class="visDesc">Every day at 6:00 AM the count resets and starts fresh. Unique Visit = same device counted once in the set hours. Ads View = how many times Ads were shown to visitors. Your own phone is not counted.</p>
+    <p class="visDesc">Every day at 6:00 AM the count resets. Unique Visit = 1 new device = 1 view. Same device again after 5 hours = +1 new view. Ads View = when someone taps a button and an Ad is shown. Your own phone is not counted.</p>
     <div class="visGrid"><div class="visBox"><small>Today's Unique Visit</small><b class="orange" id="statToday">0</b></div><div class="visBox"><small>Today's Ads View</small><b class="green" id="statAdsToday">0</b></div></div>
     <div class="last7"><h3>Last 7 Days</h3><div id="last7List"></div></div>
     <button class="refreshBtn" id="refreshVis">🔄 Refresh</button>
@@ -178,19 +178,30 @@ document.querySelectorAll('.tab').forEach(function(tab){
 function fmtDate(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function getNum(k){try{return parseInt(localStorage.getItem(k)||'0')||0}catch(e){return 0}}
 function updateVisitors(){
-  var today=fmtDate(new Date()); var tv=getNum('visit_'+today); var ads=getNum('adsview_'+today);
-  document.getElementById('dailyCount').textContent=tv;
+  var today=visitDay(new Date()); var tv=getNum('visit_'+today); var ads=getNum('adsview_'+today);
+  var dc=document.getElementById('dailyCount'); if(dc) dc.textContent=tv;
   document.getElementById('statToday').textContent=tv;
   document.getElementById('statAdsToday').textContent=ads;
-  document.getElementById('todayLabel').textContent='Today • '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  var tl=document.getElementById('todayLabel'); if(tl) tl.textContent='Today • '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
   var list=document.getElementById('last7List'); list.innerHTML='';
-  for(var i=0;i<7;i++){var d=new Date();d.setDate(d.getDate()-i);var k=fmtDate(d);var label=i===0?'Today':k;var v=getNum('visit_'+k);var a=getNum('adsview_'+k);
+  for(var i=0;i<7;i++){var d=new Date();d.setDate(d.getDate()-i);var k=visitDay(d);var label=i===0?'Today':fmtDate(d);var v=getNum('visit_'+k);var a=getNum('adsview_'+k);
     var row=document.createElement('div');row.className='row7';row.innerHTML='<span>'+label+'</span><span>👤 '+v+' Visit &nbsp; 👁️ '+a+' Ads View</span>';list.appendChild(row);}
 }
+// --- UNIQUE VISIT: 5 HOUR RULE ---
+// Day starts at 6 AM: before 6 AM counts as previous day
+function visitDay(d){ var x=new Date(d); if(x.getHours()<6){ x.setDate(x.getDate()-1); } return fmtDate(x); }
+function visitDayKey(){ return 'visit_'+visitDay(new Date()); }
 try{
-  var tk='visit_'+fmtDate(new Date());
-  if(!sessionStorage.getItem('counted_'+tk)){localStorage.setItem(tk,String(getNum(tk)+1));localStorage.setItem('visit_total',String(getNum('visit_total')+1));sessionStorage.setItem('counted_'+tk,'1');}
-  // Simulate ads view when a main button is clicked - counted in Ads tab logic too
+  var FIVE_HOURS = 5*60*60*1000;
+  var lastVisit = parseInt(localStorage.getItem('amelia_last_visit_time')||'0')||0;
+  var nowMs = Date.now();
+  // First time OR 5 hours passed since last counted visit -> count +1
+  if(lastVisit===0 || (nowMs - lastVisit) >= FIVE_HOURS){
+    var vk = visitDayKey();
+    localStorage.setItem(vk, String(getNum(vk)+1));
+    localStorage.setItem('visit_total', String(getNum('visit_total')+1));
+    localStorage.setItem('amelia_last_visit_time', String(nowMs));
+  }
 }catch(e){}
 updateVisitors();
 document.getElementById('refreshVis').onclick=function(){updateVisitors();toast('Refreshed 🔄')};
@@ -228,8 +239,23 @@ document.getElementById('addAdBtn').onclick=function(){ads.push({on:true,type:'D
 var CFG={l1:'#',l2:'#',l3:'#'};
 try{var s1=localStorage.getItem('amelia_l1'),s2=localStorage.getItem('amelia_l2'),s3=localStorage.getItem('amelia_l3');if(s1)CFG.l1=s1;if(s2)CFG.l2=s2;if(s3)CFG.l3=s3;}catch(e){}
 document.getElementById('l1').href=CFG.l1;document.getElementById('l2').href=CFG.l2;document.getElementById('l3').href=CFG.l3;
-// Count Ads View on button click
-['l1','l2','l3'].forEach(function(id){document.getElementById(id).addEventListener('click',function(){try{var k='adsview_'+fmtDate(new Date());localStorage.setItem(k,String(getNum(k)+1));updateVisitors()}catch(e){}})});
+// ADS VIEW: button tap -> if any Ad is ON, show Ad + count 1 Ads View
+function anyAdOn(){ try{ return ads.some(function(a){return a.on}); }catch(e){ return true; } }
+function countAdsView(){
+  try{
+    if(!anyAdOn()) return; // No ad set -> no Ads View
+    var k='adsview_'+visitDay(new Date());
+    localStorage.setItem(k, String(getNum(k)+1));
+    updateVisitors();
+  }catch(e){}
+}
+['l1','l2','l3'].forEach(function(id){
+  document.getElementById(id).addEventListener('click',function(){
+    countAdsView();
+    // Here your real Ad link opens - the button href already points to it.
+    // If you set Direct Link Ad in Admin > Ads, that link will be used.
+  });
+});
 // Load theme
 try{var sv=localStorage.getItem('amelia_theme');if(sv!==null)applyTheme(parseInt(sv),true)}catch(e){}
 // Password + Secret
