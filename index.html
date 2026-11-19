@@ -101,6 +101,11 @@ footer{margin-top:22px;color:var(--mute);font-size:12px}
 .bannerAd{margin:10px auto;max-width:440px;background:linear-gradient(100deg,#ff3d7f,#7c4dff);color:#fff;border-radius:14px;padding:14px;text-align:center;font-weight:700;cursor:pointer}
 .bannerAd small{display:block;font-weight:400;font-size:12.5px;opacity:.9}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#fff;color:#111;padding:10px 16px;border-radius:999px;font-size:13px;font-weight:700;display:none;z-index:200}
+.adslot{margin:12px auto;max-width:440px;text-align:center;overflow:hidden}
+.adslot .adtag{font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--mute);margin-bottom:4px}
+.adslot .adbody{display:flex;justify-content:center;overflow:hidden}
+.stickyad{position:fixed;left:0;right:0;bottom:0;z-index:70;text-align:center;background:rgba(0,0,0,.65);padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px));backdrop-filter:blur(6px)}
+.stickyad .x{position:absolute;right:8px;top:4px;color:#fff;background:#0008;border-radius:50%;width:22px;height:22px;line-height:22px;font-size:14px;cursor:pointer;z-index:2}
 </style>
 </head>
 <body>
@@ -145,12 +150,12 @@ footer{margin-top:22px;color:var(--mute);font-size:12px}
   <!-- CONTENT TAB -->
   <div class="tabContent" id="tab-content" style="display:none">
     <div class="contentCard"><b>✏️ Home Page Welcome Text</b><p>Home page er upore je welcome lekha ta ase, eita ekhan theke jokhon tokhon change korte parba. Likhe Save dao, sathe sathe home page e change hoye jabe.</p><textarea id="welcomeInput" placeholder="Welcome to my official page..."></textarea><button class="saveBtn" id="saveWelcome" style="width:100%;padding:14px;border:0;border-radius:14px;background:linear-gradient(100deg,#ff3d7f,#7c4dff);color:#fff;font-weight:800;cursor:pointer">Save Welcome Text ✅</button></div>
-    <div class="contentCard"><b>🔗 Button Links</b><p>3 ta button er link ekhan theke change koro. Free Video Call + Contact Free Call e Direct Link Ad ON thakle Ad er link khulbe.</p><input id="inL1" placeholder="Free Video Call Link"><input id="inL2" placeholder="Personal Text Link"><input id="inL3" placeholder="Contact Free Call Link"><button class="saveBtn" id="saveLinks2" style="width:100%;padding:14px;border:0;border-radius:14px;background:#ff8a00;color:#fff;font-weight:800;cursor:pointer">Save Links ✅</button></div>
+    <div class="contentCard"><b>🔗 Button Links</b><p>3 ta button er link ekhan theke change koro. Button e chaple ei link-i khulbe.</p><input id="inL1" placeholder="Free Video Call Link"><input id="inL2" placeholder="Personal Text Link"><input id="inL3" placeholder="Contact Free Call Link"><button class="saveBtn" id="saveLinks2" style="width:100%;padding:14px;border:0;border-radius:14px;background:#ff8a00;color:#fff;font-weight:800;cursor:pointer">Save Links ✅</button></div>
   </div>
 
   <!-- VISITORS TAB -->
   <div class="tabContent" id="tab-visitors" style="display:none">
-    <p class="visDesc">Every day at 6:00 AM the count resets. Unique Visit = 1 new device = 1 view. Same device again after 5 hours = +1 new view. Ads View = when someone taps a button and an Ad is shown. Your own phone is not counted.</p>
+    <p class="visDesc">Every day at 6:00 AM the count resets. Unique Visit = 1 new device = 1 view. Same device again after 5 hours = +1 new view. Ads View = a page load where at least one Ad is ON. Your own phone is not counted.</p>
     <div class="visGrid"><div class="visBox"><small>Today's Unique Visit</small><b class="orange" id="statToday">0</b></div><div class="visBox"><small>Today's Ads View</small><b class="green" id="statAdsToday">0</b></div></div>
     <div class="last7"><h3>Last 7 Days</h3><div id="last7List"></div></div>
     <button class="refreshBtn" id="refreshVis">🔄 Refresh</button>
@@ -234,29 +239,29 @@ updateVisitors();
 document.getElementById('refreshVis').onclick=function(){updateVisitors();toast('Refreshed 🔄')};
 // Ads
 var adsDefault=[
- {on:true,type:'Direct Link',name:'New Ad',code:'https://tinyurl.com/5jtbty5e',pos:'Bottom',size:'100%',note:'Direct Link: Only Free Video Call + Contact Free Call button e chaple khulbe. Personal Text e khulbe na.'},
- {on:true,type:'Popunder',name:'Popunder',code:'https://aarems.org/1/fcba48f61b32153341476f71bdd01332',pos:'Top',size:'60%',note:'Popunder: Page khullei upore / niche show hobe.'},
- {on:false,type:'Native / Social Bar',name:'Social Bar',code:'https://tinyurl.com/5jtbty5e',pos:'Top',size:'100%',note:'Native: Home page e notification er moto dekhabe - You have (2) new messages'}
+ {on:true,type:'Popunder',name:'Popunder',code:'https://aarems.org/1/fcba48f61b32153341476f71bdd01332',pos:'Top',size:'100%',note:'Popunder: ad code/script link. Page khulle load hobe, visitor kothao click korle ad khulbe (nijer moto kono bar dekha jay na).'},
+ {on:false,type:'Native / Social Bar',name:'Social Bar',code:'',pos:'Bottom',size:'100%',note:'Native / Social Bar: Adsterra er script code ekhane paste koro.'},
+ {on:false,type:'Banner',name:'Banner',code:'',pos:'Top',size:'100%',note:'Banner: Adsterra er banner code paste koro. Top/Bottom e "Advertisement" lekha shoho dekhabe.'}
 ];
 var adsMaster = true;
 try{ var m = localStorage.getItem('amelia_ads_master'); if(m!==null) adsMaster = (m==='1'); }catch(e){}
 
 var ads=[];
-try{ads=JSON.parse(localStorage.getItem('amelia_ads')||'null')||adsDefault; ads=ads.map(function(a){ if(!a.pos) a.pos='Top'; if(!a.size) a.size='100%'; if(a.code && a.code.indexOf('<script')!==-1){ a.code=a.code.replace(/<[^>]*>/g,'').trim(); } return a; });}catch(e){ads=adsDefault}
+try{ads=JSON.parse(localStorage.getItem('amelia_ads')||'null')||adsDefault; ads=ads.filter(function(a){return a.type!=='Direct Link'}).map(function(a){ if(!a.pos) a.pos='Top'; if(!a.size) a.size='100%'; return a; });}catch(e){ads=adsDefault}
 function saveAds(){try{localStorage.setItem('amelia_ads',JSON.stringify(ads))}catch(e){}}
 function renderAds(){
   var wrap=document.getElementById('adsList');wrap.innerHTML='';
   ads.forEach(function(ad,idx){
     var card=document.createElement('div');card.className='adCard';
     card.innerHTML='<div class="adHead"><b>'+(idx+1)+'. '+ad.name.replace(/</g,'&lt;')+'</b><label class="switch"><input type="checkbox" '+(ad.on?'checked':'')+'><span class="slider"></span></label></div>'
-      +'<select><option '+(ad.type==='Direct Link'?'selected':'')+'>Direct Link</option><option '+(ad.type==='Popunder'?'selected':'')+'>Popunder</option><option '+(ad.type==='Banner'?'selected':'')+'>Banner</option><option '+(ad.type==='Sticky'?'selected':'')+'>Sticky</option><option '+(ad.type==='Native / Social Bar'?'selected':'')+'>Native / Social Bar</option></select>'
+      +'<select><option '+(ad.type==='Popunder'?'selected':'')+'>Popunder</option><option '+(ad.type==='Banner'?'selected':'')+'>Banner</option><option '+(ad.type==='Sticky'?'selected':'')+'>Sticky</option><option '+(ad.type==='Native / Social Bar'?'selected':'')+'>Native / Social Bar</option></select>'
       +'<label style="font-size:13px;color:#a59fc8">📍 Ad koi cholbe? Upore na Niche?</label>'
       +'<select class="posSel"><option '+(ad.pos==='Top'?'selected':'')+'>Top</option><option '+(ad.pos==='Bottom'?'selected':'')+'>Bottom</option></select>'
       +'<label style="font-size:13px;color:#a59fc8">📐 Size</label>'
       +'<select class="sizeSel"><option '+(ad.size==='60%'?'selected':'')+'>60%</option><option '+(ad.size==='80%'?'selected':'')+'>80%</option><option '+(ad.size==='100%'?'selected':'')+'>100%</option></select>'
       +'<input type="text" placeholder="Ad Name" value="'+ad.name.replace(/"/g,'')+'">'
-      +'<textarea placeholder="Ad Link / Code"></textarea>'
-      +'<div class="adNote">🔒 '+(ad.note||'This link will be used in Unlock Task')+'</div>'
+      +'<textarea placeholder="Ad Code (script) ba script link"></textarea>'
+      +'<div class="adNote">🔒 '+(ad.note||'Ad code ekhane paste koro.')+'</div>'
       +'<button class="delBtn">✕ Delete This</button>';
     card.querySelector('textarea').value = ad.code;
     var inputs=card.querySelectorAll('select,input[type=text],textarea');
@@ -271,39 +276,41 @@ function renderAds(){
   });
 }
 renderAds();
-document.getElementById('addAdBtn').onclick=function(){ads.push({on:true,type:'Direct Link',name:'New Ad '+(ads.length+1),code:'',pos:'Top',size:'100%',note:'Direct Link: Only Free Video Call + Contact Free Call'});saveAds();renderAds();toast('New Ad Added ➕')};
+document.getElementById('addAdBtn').onclick=function(){ads.push({on:true,type:'Banner',name:'New Ad '+(ads.length+1),code:'',pos:'Top',size:'100%',note:'Ad code ekhane paste koro.'});saveAds();renderAds();toast('New Ad Added ➕')};
 
 // --- MASTER SWITCH ---
 function isAdsMasterOn(){ return adsMaster; }
 var masterEl = document.getElementById('masterAds');
-if(masterEl){ masterEl.checked = adsMaster; masterEl.onchange = function(){ adsMaster = this.checked; try{localStorage.setItem('amelia_ads_master', adsMaster?'1':'0');}catch(e){} renderHomeAds(); toast(adsMaster ? 'All Ads ON ✅' : 'All Ads OFF ⛔'); }; }
+if(masterEl){ masterEl.checked = adsMaster; masterEl.onchange = function(){ adsMaster = this.checked; cloudPush(); try{localStorage.setItem('amelia_ads_master', adsMaster?'1':'0');}catch(e){} renderHomeAds(); toast(adsMaster ? 'All Ads ON ✅' : 'All Ads OFF ⛔'); }; }
 
 // --- HOME PAGE ADS: Native / Banner / Popunder ---
+function injectHTML(el,html){ var t=document.createElement('div'); t.innerHTML=html; Array.prototype.slice.call(t.childNodes).forEach(function(n){ if(n.tagName==='SCRIPT'){ var sc=document.createElement('script'); Array.prototype.slice.call(n.attributes).forEach(function(at){ sc.setAttribute(at.name,at.value); }); sc.text=n.textContent; el.appendChild(sc); } else el.appendChild(n); }); }
+function adHTML(code){ code=(code||'').trim(); if(/^https?:\/\//i.test(code)) return '<script async data-cfasync="false" src="'+code.replace(/"/g,'')+'"></scr'+'ipt>'; return code; }
+var popHost=null, stickyHost=null, adsViewCounted=false;
 function renderHomeAds(){
   var topSlot=document.getElementById('adTopSlot'); var botSlot=document.getElementById('adBottomSlot');
   if(topSlot) topSlot.innerHTML=''; if(botSlot) botSlot.innerHTML='';
+  if(popHost){ popHost.remove(); popHost=null; } if(stickyHost){ stickyHost.remove(); stickyHost=null; }
   if(!adsMaster) return;
   ads.forEach(function(ad){
-    if(!ad.on || !ad.code) return;
-    var isUrl = ad.code.trim().indexOf('http')===0;
-    if(ad.type==='Native / Social Bar'){
-      var d=document.createElement('div'); d.className='nativeAd '+(ad.pos==='Bottom'?'bottom':'top'); d.style.width=ad.size;
-      d.innerHTML='<img src="profile.jpg" alt=""><span><b>You have (2) new messages</b><small>Amelia: Don\'t show this to anyone 😘</small></span><span class="x">✕</span>';
-      d.onclick=function(e){ if(e.target.className==='x'){ d.remove(); return; } if(isUrl) window.open(ad.code,'_blank'); countAdsView(); };
-      (ad.pos==='Bottom'?botSlot:topSlot).appendChild(d);
-    } else if(ad.type==='Banner' || ad.type==='Sticky'){
-      var b=document.createElement('div'); b.className='bannerAd'; b.style.width=ad.size;
-      b.innerHTML='🔥 '+ad.name+' - Tap Here<small>Advertisement</small>';
-      b.onclick=function(){ if(isUrl) window.open(ad.code,'_blank'); countAdsView(); };
-      (ad.pos==='Bottom'?botSlot:topSlot).appendChild(b);
-    } else if(ad.type==='Popunder'){
-      // Popunder: small floating bar, Top or Bottom as selected
-      var pp=document.createElement('div'); pp.className='bannerAd'; pp.style.width=ad.size;
-      pp.innerHTML='💰 '+ad.name+' - Tap to Open<small>Popunder Ad</small>';
-      pp.onclick=function(){ if(isUrl) window.open(ad.code,'_blank'); countAdsView(); };
-      (ad.pos==='Bottom'?botSlot:topSlot).appendChild(pp);
-    }
+    if(!ad.on || !ad.code || !ad.code.trim()) return;
+    try{
+      var html=adHTML(ad.code);
+      if(ad.type==='Popunder'){
+        if(!popHost){ popHost=document.createElement('div'); popHost.style.cssText='position:absolute;width:0;height:0;overflow:hidden'; document.body.appendChild(popHost); }
+        injectHTML(popHost,html);
+      } else if(ad.type==='Sticky'){
+        if(!stickyHost){ stickyHost=document.createElement('div'); stickyHost.className='stickyad'; stickyHost.innerHTML='<span class="x">\u2715</span>'; stickyHost.querySelector('.x').onclick=function(){ stickyHost.remove(); }; document.body.appendChild(stickyHost); }
+        injectHTML(stickyHost,html);
+      } else {
+        var slot=document.createElement('div'); slot.className='adslot'; slot.style.width=ad.size||'100%';
+        slot.innerHTML='<div class="adtag">Advertisement</div><div class="adbody"></div>';
+        injectHTML(slot.querySelector('.adbody'),html);
+        (ad.pos==='Bottom'?botSlot:topSlot).appendChild(slot);
+      }
+    }catch(e){ console.warn('ad error',e); }
   });
+  if(!adsViewCounted){ adsViewCounted=true; countAdsView(); }
 }
 
 // --- CONTENT: Welcome Text ---
@@ -319,7 +326,7 @@ document.getElementById('saveWelcome').onclick=function(){
   var v=document.getElementById('welcomeInput').value.trim();
   if(!v){ toast('Please write something'); return; }
   document.getElementById('bio').textContent=v;
-  try{localStorage.setItem('amelia_bio',v);}catch(e){}
+  try{localStorage.setItem('amelia_bio',v);}catch(e){} cloudPush();
   toast('Welcome Text Saved ✅');
 };
 // Content tab link inputs
@@ -330,16 +337,9 @@ function syncLinkInputs(){
 document.getElementById('saveLinks2').onclick=function(){
   CFG.l1=document.getElementById('inL1').value||'#'; CFG.l2=document.getElementById('inL2').value||'#'; CFG.l3=document.getElementById('inL3').value||'#';
   try{localStorage.setItem('amelia_l1',CFG.l1);localStorage.setItem('amelia_l2',CFG.l2);localStorage.setItem('amelia_l3',CFG.l3);}catch(e){}
-  document.getElementById('l1').href=CFG.l1; document.getElementById('l2').href=CFG.l2; document.getElementById('l3').href=CFG.l3;
+  document.getElementById('l1').href=CFG.l1; document.getElementById('l2').href=CFG.l2; document.getElementById('l3').href=CFG.l3; cloudPush();
   toast('Links Saved ✅');
 };
-
-// --- DIRECT LINK RULE ---
-function getDirectLink(){
-  if(!adsMaster) return null;
-  for(var i=0;i<ads.length;i++){ if(ads[i].on && ads[i].type==='Direct Link' && ads[i].code && ads[i].code.trim().indexOf('http')===0) return ads[i].code.trim(); }
-  return null;
-}
 
 // Links (main page)
 var CFG={l1:'#',l2:'#',l3:'#'};
@@ -356,19 +356,7 @@ function countAdsView(){
     updateVisitors();
   }catch(e){}
 }
-// Free Video Call (l1) + Contact Free Call (l3): Direct Link Ad ON thakle Ad er link khulbe
-// Personal Text (l2): Direct Link khulbe NA, ager motoi thakbe, Ads View o gonbe NA
-document.getElementById('l1').addEventListener('click',function(e){
-  var dl=getDirectLink();
-  if(dl){ e.preventDefault(); countAdsView(); window.open(dl,'_blank'); }
-});
-document.getElementById('l3').addEventListener('click',function(e){
-  var dl=getDirectLink();
-  if(dl){ e.preventDefault(); countAdsView(); window.open(dl,'_blank'); }
-});
-document.getElementById('l2').addEventListener('click',function(e){
-  // Personal Text: no Direct Link, no Ads View - normal link only
-});
+// Buttons: sob button nijer link-i khulbe (kono ad e redirect hobe na)
 // Load theme
 try{var sv=localStorage.getItem('amelia_theme');if(sv!==null)applyTheme(parseInt(sv),true)}catch(e){}
 // Password + Secret
@@ -377,13 +365,34 @@ document.getElementById('lockBtn').addEventListener('click',function(){
   var now=Date.now();taps.push(now);taps=taps.filter(function(t){return now-t<10000});
   if(taps.length>=5){taps=[];document.getElementById('passOverlay').classList.add('open');document.getElementById('passInput').value='';document.getElementById('passErr').style.display='none';setTimeout(function(){document.getElementById('passInput').focus()},100)}
 });
-function tryPass(){var v=document.getElementById('passInput').value;if(v===PASSWORD){document.getElementById('passOverlay').classList.remove('open');document.getElementById('adminOverlay').classList.add('open');updateVisitors(); loadWelcome(); syncLinkInputs(); renderHomeAds(); toast('Welcome Admin 👑')}else{document.getElementById('passErr').style.display='block'}}
+function tryPass(){var v=document.getElementById('passInput').value;if(v===PASSWORD){document.getElementById('passOverlay').classList.remove('open');document.getElementById('adminOverlay').classList.add('open');updateVisitors(); loadWelcome(); syncLinkInputs(); renderHomeAds(); if(FB_ON){ fbLogin(v).catch(function(){ toast('Online login hoyni - Firebase check koro'); }); } toast('Welcome Admin 👑')}else{document.getElementById('passErr').style.display='block'}}
 document.getElementById('passGo').onclick=tryPass;
 document.getElementById('passInput').addEventListener('keydown',function(e){if(e.key==='Enter')tryPass()});
 document.getElementById('passCancel').onclick=function(){document.getElementById('passOverlay').classList.remove('open')};
 document.getElementById('goSite').onclick=function(){document.getElementById('adminOverlay').classList.remove('open')};
 document.getElementById('logoutBtn').onclick=function(){document.getElementById('adminOverlay').classList.remove('open');toast('Logged Out')};
-document.getElementById('saveAllTop').onclick=function(){saveAds(); try{localStorage.setItem('amelia_ads_master', adsMaster?'1':'0');}catch(e){} renderHomeAds(); toast('Saved Successfully ✅')};
+document.getElementById('saveAllTop').onclick=function(){saveAds(); try{localStorage.setItem('amelia_ads_master', adsMaster?'1':'0');}catch(e){} renderHomeAds(); cloudPush(); toast('Saved Successfully ✅')};
+
+/* ===== ONLINE SAVE (optional) =====
+   Firebase set na korle sob setting sudhu admin er phone e thake — onno visitor ra dekhbe na.
+   Niche 3 ta ghor puron korle admin er save kora ad/link/theme sobar kache pouchabe. */
+var FB={apiKey:'',databaseURL:'https://wabsaite-free-call-default-rtdb.firebaseio.com',adminEmail:'admin@amelia.com'};
+var FB_ON=!!(FB.apiKey&&FB.databaseURL&&FB.adminEmail), fbAuth=null, pushT;
+function fbDB(){ return FB.databaseURL.replace(/\/$/,''); }
+function snapshot(){ var th=null; try{ th=localStorage.getItem('amelia_theme'); }catch(e){} return {ads:ads,master:adsMaster,bio:document.getElementById('bio').textContent,l1:CFG.l1,l2:CFG.l2,l3:CFG.l3,theme:th}; }
+async function fbLogin(pw){ var r=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+FB.apiKey,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:FB.adminEmail,password:pw,returnSecureToken:true})}); var j=await r.json(); if(!r.ok) throw new Error('login'); fbAuth={idToken:j.idToken,refreshToken:j.refreshToken,exp:Date.now()+(+j.expiresIn-120)*1000}; }
+async function fbToken(){ if(!fbAuth) throw new Error('noauth'); if(Date.now()>fbAuth.exp){ var r=await fetch('https://securetoken.googleapis.com/v1/token?key='+FB.apiKey,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'grant_type=refresh_token&refresh_token='+encodeURIComponent(fbAuth.refreshToken)}); var j=await r.json(); if(!r.ok) throw new Error('refresh'); fbAuth={idToken:j.id_token,refreshToken:j.refresh_token,exp:Date.now()+(+j.expires_in-120)*1000}; } return fbAuth.idToken; }
+function cloudPush(){ if(!FB_ON||!fbAuth) return; clearTimeout(pushT); pushT=setTimeout(async function(){ try{ var tok=await fbToken(); var r=await fetch(fbDB()+'/amelia.json?auth='+tok,{method:'PUT',body:JSON.stringify(snapshot())}); if(!r.ok) throw new Error(r.status); toast('☁️ Online save hoyeche'); }catch(e){ toast('❌ Online save hoyni'); } },700); }
+function applyRemote(j){ if(!j) return; try{
+  if(Array.isArray(j.ads)){ ads=j.ads.filter(function(a){return a.type!=='Direct Link'}); localStorage.setItem('amelia_ads',JSON.stringify(ads)); }
+  if(typeof j.master==='boolean'){ adsMaster=j.master; localStorage.setItem('amelia_ads_master',adsMaster?'1':'0'); var m=document.getElementById('masterAds'); if(m) m.checked=adsMaster; }
+  if(j.bio){ document.getElementById('bio').textContent=j.bio; localStorage.setItem('amelia_bio',j.bio); }
+  ['l1','l2','l3'].forEach(function(k){ if(j[k]){ CFG[k]=j[k]; document.getElementById(k).href=j[k]; localStorage.setItem('amelia_'+k,j[k]); } });
+  if(j.theme!==null&&j.theme!==undefined&&THEMES[parseInt(j.theme)]) applyTheme(parseInt(j.theme),true);
+ }catch(e){} renderAds(); renderHomeAds(); loadWelcome(); syncLinkInputs(); }
+if(FB_ON){ fetch(fbDB()+'/amelia.json').then(function(r){return r.json()}).then(applyRemote).catch(function(){}); }
+var _saveAds=saveAds; saveAds=function(){ _saveAds(); cloudPush(); };
+var _applyTheme=applyTheme; applyTheme=function(i,silent){ _applyTheme(i,silent); if(!silent) cloudPush(); };
 </script>
 </body>
 </html>
