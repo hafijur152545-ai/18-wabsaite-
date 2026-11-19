@@ -3,17 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="rating" content="adult">
 <meta name="theme-color" content="#0e0b1f">
 <title>Amelia – Official Page (18+)</title>
 <style>
-:root{--bg:#0e0b1f;--card:#17142e;--text:#f4f1ff;--mute:#a59fc8;--pink:#ff3d7f;--violet:#7c4dff;--line:#2a2548}
+:root{--bg:#0e0b1f;--card:#17142e;--text:#f4f1ff;--mute:#a59fc8;--pink:#ff3d7f;--violet:#7c4dff;--line:#2a2548;--b1a:#ff3d7f;--b1b:#ff5c5c;--b2a:#a24dff;--b2b:#5b4bf0;--b3a:#12b886;--b3b:#0a9f8f;--glow:rgba(124,77,255,.35)}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(120% 60% at 50% 0,#2a1658 0,var(--bg) 60%) no-repeat,var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;display:flex;justify-content:center}
-body.locked{overflow:hidden}
-body.locked main{filter:blur(14px);pointer-events:none;user-select:none}
-main{width:100%;max-width:440px;padding:32px 18px 40px;text-align:center;transition:filter .4s}
-.avatar{width:128px;height:128px;margin:0 auto 14px;border-radius:50%;padding:4px;background:linear-gradient(135deg,var(--pink),var(--violet))}
+body{margin:0;background:radial-gradient(120% 60% at 50% 0,#2a1658 0,var(--bg) 60%) no-repeat,var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;display:flex;justify-content:center;transition:background .3s}
+main{width:100%;max-width:440px;padding:78px 18px 40px;text-align:center}
+.avatar{width:128px;height:128px;margin:0 auto 14px;border-radius:50%;padding:4px;background:linear-gradient(135deg,var(--pink),var(--violet));box-shadow:0 10px 30px var(--glow)}
 .avatar div{width:100%;height:100%;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:44px;font-weight:700;overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:cover}
 h1{margin:0;font-size:30px}
@@ -21,108 +18,174 @@ h1{margin:0;font-size:30px}
 .bio{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-size:15px;line-height:1.5;margin-bottom:18px}
 .btn{display:flex;align-items:center;gap:14px;text-decoration:none;color:#fff;border-radius:18px;padding:16px;margin-bottom:12px;text-align:left;transition:transform .15s}
 .btn:active{transform:scale(.98)}
-.btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
 .ic{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:22px;flex:none}
 .btn b{display:block;font-size:17px}
 .btn small{opacity:.85;font-size:13px}
 .go{margin-left:auto;font-size:20px}
-.b1{background:linear-gradient(100deg,#ff3d7f,#ff5c5c)}
-.b2{background:linear-gradient(100deg,#a24dff,#5b4bf0)}
-.b3{background:linear-gradient(100deg,#12b886,#0a9f8f)}
+.b1{background:linear-gradient(100deg,var(--b1a),var(--b1b))}
+.b2{background:linear-gradient(100deg,var(--b2a),var(--b2b))}
+.b3{background:linear-gradient(100deg,var(--b3a),var(--b3b))}
 .trust{display:flex;justify-content:space-around;margin-top:22px;color:var(--mute);font-size:12.5px}
+.trust div{cursor:pointer;padding:6px 8px;border-radius:10px;user-select:none;-webkit-tap-highlight-color:transparent}
 .trust span{display:block;font-size:20px;margin-bottom:4px}
 footer{margin-top:22px;color:var(--mute);font-size:12px}
-
-/* Age gate */
-#gate{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;background:rgba(8,6,20,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-#gate[hidden]{display:none}
-.box{width:100%;max-width:360px;background:linear-gradient(#1d1940,#14112b);border:1px solid var(--line);border-radius:24px;padding:28px 24px;text-align:center;box-shadow:0 20px 60px rgba(124,77,255,.35);animation:pop .35s ease-out}
-@keyframes pop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
-@media (prefers-reduced-motion:reduce){.box{animation:none}}
-.badge{width:76px;height:76px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-size:28px;font-weight:800;background:linear-gradient(135deg,var(--pink),var(--violet));box-shadow:0 0 0 6px rgba(255,61,127,.18)}
-.box h2{margin:0 0 8px;font-size:23px}
-.box p{color:var(--mute);line-height:1.55;margin:0 0 18px;font-size:14.5px}
-.box button{display:block;width:100%;padding:15px;border-radius:14px;font:inherit;font-weight:700;font-size:16px;cursor:pointer;margin-top:10px;border:0}
-.box button:focus-visible{outline:3px solid #fff;outline-offset:2px}
-.yes{background:linear-gradient(100deg,var(--pink),var(--violet));color:#fff}
-.no{background:transparent;color:var(--mute);border:1px solid var(--line)!important}
-.fine{margin-top:14px;font-size:11.5px;color:var(--mute)}
-#blocked{display:none}
-.box.denied #ask{display:none}
-.box.denied #blocked{display:block}
+.visit-box{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;font-size:14px;color:var(--mute)}
+.visit-box b{color:var(--text);font-size:20px;display:block}
+/* ADMIN */
+#adminOverlay{position:fixed;inset:0;z-index:99;display:none;background:rgba(5,3,15,.85);backdrop-filter:blur(6px);overflow-y:auto;padding:18px 14px 30px}
+#adminOverlay.open{display:block}
+.admin{max-width:460px;margin:0 auto;background:#1b1838;border:1px solid #332a5e;border-radius:22px;padding:20px}
+.admin h2{margin:0 0 4px;font-size:22px}
+.admin p{margin:0 0 16px;color:#a59fc8;font-size:13.5px;line-height:1.5}
+.closeBtn{float:right;background:#2a2548;border:0;color:#fff;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer}
+.statGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.stat{background:#12102a;border:1px solid #2a2548;border-radius:14px;padding:12px;text-align:center}
+.stat b{font-size:22px;display:block}
+.stat small{color:#a59fc8}
+.sectionTitle{font-weight:700;margin:18px 0 10px;text-align:left;font-size:16px}
+.themeGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.themeBtn{border:2px solid transparent;border-radius:14px;padding:10px;cursor:pointer;color:#fff;text-align:left;font-family:inherit}
+.themeBtn.active{border-color:#fff;outline:2px solid #fff;outline-offset:2px}
+.themeBtn b{display:block;font-size:14px}
+.themeBtn small{opacity:.85;font-size:12px}
+.themeBtn .dots{display:flex;gap:5px;margin-top:8px}
+.themeBtn .dots i{width:18px;height:18px;border-radius:50%;display:block;border:2px solid rgba(255,255,255,.5)}
+.adminInput{width:100%;padding:12px;border-radius:12px;border:1px solid #2a2548;background:#12102a;color:#fff;margin-bottom:10px;font:inherit;font-size:14px}
+.saveBtn{width:100%;padding:14px;border:0;border-radius:14px;background:linear-gradient(100deg,#ff3d7f,#7c4dff);color:#fff;font-weight:800;font-size:15px;cursor:pointer}
+.hint{font-size:12px;color:#a59fc8;margin-top:10px;line-height:1.5}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#fff;color:#111;padding:10px 16px;border-radius:999px;font-size:13px;font-weight:700;display:none;z-index:120;box-shadow:0 10px 30px rgba(0,0,0,.4)}
 </style>
 </head>
-<body class="locked">
-
-<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gt">
-  <div class="box" id="box">
-    <div class="badge">18+</div>
-    <div id="ask">
-      <h2 id="gt">Are you 18 years or older?</h2>
-      <p>This website contains content for adults only. Please confirm your age to continue.</p>
-      <button class="yes" id="yes" autofocus>Yes, I am 18+</button>
-      <button class="no" id="no">No, I am under 18</button>
-      <div class="fine">By tapping "Yes", you confirm you are an adult under the laws of your country.</div>
-    </div>
-    <div id="blocked">
-      <h2>Sorry, you cannot enter</h2>
-      <p>This page is only for people aged 18 or older.</p>
-      <button class="no" id="back">Try Again</button>
-    </div>
-  </div>
-</div>
-
+<body>
 <main>
-  <!-- Profile photo: profile.jpg -->
-  <div class="avatar"><div id="av"><img src="profile.jpg" alt="Amelia profile photo"></div></div>
+  <div class="avatar"><div><img src="profile.jpg" alt="Amelia profile photo"></div></div>
   <h1 id="nm">Amelia</h1>
   <p class="sub">Official Page · 18+</p>
   <div class="bio" id="bio">Welcome to my official page. Here you will find all my latest updates and links in one place.</div>
 
-  <a class="btn b1" href="#" id="l1" rel="noopener"><span class="ic">🎥</span><span><b>Watch Video Page</b><small>Go to my content platform</small></span><span class="go">›</span></a>
-  <a class="btn b2" href="#" id="l2" rel="noopener"><span class="ic">💬</span><span><b>Chat Community</b><small>Join on Telegram / Discord</small></span><span class="go">›</span></a>
-  <a class="btn b3" href="#" id="l3" rel="noopener"><span class="ic">📞</span><span><b>Contact Me</b><small>Send a message on WhatsApp</small></span><span class="go">›</span></a>
+  <a class="btn b1" href="#" id="l1"><span class="ic">🎥</span><span><b>Watch Video Page</b><small>Go to my content platform</small></span><span class="go">›</span></a>
+  <a class="btn b2" href="#" id="l2"><span class="ic">💬</span><span><b>Chat Community</b><small>Join on Telegram / Discord</small></span><span class="go">›</span></a>
+  <a class="btn b3" href="#" id="l3"><span class="ic">📞</span><span><b>Contact Me</b><small>Send a message on WhatsApp</small></span><span class="go">›</span></a>
 
   <div class="trust">
-    <div><span>🔒</span>Safe Link</div>
+    <div id="lockBtn" title="Admin - Tap 5 times in 10 sec"><span>🔒</span>Safe Link</div>
     <div><span>⚡</span>No Sign-up Needed</div>
     <div><span>🔞</span>18+ Only</div>
   </div>
+  <div class="visit-box">👀 Daily Visitors<b id="dailyCount">0</b><span id="todayLabel">Today</span></div>
   <footer>© Amelia · All content is for adults and consensual</footer>
 </main>
 
+<!-- ADMIN PANEL -->
+<div id="adminOverlay">
+  <div class="admin">
+    <button class="closeBtn" id="closeAdmin">✕</button>
+    <h2>⚙️ Admin Panel</h2>
+    <p>Welcome back, Amelia. Change theme, links and check daily visits here. Only you can open this panel.</p>
+
+    <div class="statGrid">
+      <div class="stat"><b id="statToday">0</b><small>📅 Daily Visit</small></div>
+      <div class="stat"><b id="statTotal">0</b><small>🌍 Total Visit</small></div>
+    </div>
+
+    <div class="sectionTitle">🎨 Choose Theme - 14 Themes</div>
+    <div class="themeGrid" id="themeGrid"></div>
+
+    <div class="sectionTitle">🔗 Edit Links</div>
+    <input class="adminInput" id="inL1" placeholder="Video Page Link">
+    <input class="adminInput" id="inL2" placeholder="Chat Community Link">
+    <input class="adminInput" id="inL3" placeholder="Contact / WhatsApp Link">
+    <input class="adminInput" id="inBio" placeholder="Bio - 1-2 lines">
+    <button class="saveBtn" id="saveLinks">Save Changes ✅</button>
+    <div class="hint">Tip: Theme auto-saves in this browser. To make it permanent for everyone, tell me which theme number you like and I will set it as default.<br>Secret open: Tap 🔒 5 times within 10 seconds.</div>
+  </div>
+</div>
+<div class="toast" id="toast">Theme Changed ✨</div>
+
 <script>
-/* ===== Change your info here ===== */
-var CFG = {
-  name: 'Amelia',
-  bio:  'Welcome to my official page. Here you will find all my latest updates and links in one place.',
-  l1: '#',   // Video / content link
-  l2: '#',   // Telegram / Discord link
-  l3: '#'    // WhatsApp link
-};
-var REMEMBER_HOURS = 24; // How long before asking age again
-/* ================================== */
-
-(function(){
-  var KEY='age18_ok', gate=document.getElementById('gate'), box=document.getElementById('box');
-  document.getElementById('nm').textContent=CFG.name;
-  // Avatar image is kept as-is (profile.jpg), no initial letter needed
+var CFG={name:'Amelia',bio:'Welcome to my official page. Here you will find all my latest updates and links in one place.',l1:'#',l2:'#',l3:'#'};
+var THEMES=[
+ {name:'1. Royal Purple',bg:'#0e0b1f',card:'#17142e',text:'#f4f1ff',mute:'#a59fc8',pink:'#ff3d7f',violet:'#7c4dff',b1:['#ff3d7f','#ff5c5c'],b2:['#a24dff','#5b4bf0'],b3:['#12b886','#0a9f8f']},
+ {name:'2. Midnight Blue',bg:'#050a1f',card:'#101a3a',text:'#eaf0ff',mute:'#8fa3d0',pink:'#3b82f6',violet:'#06b6d4',b1:['#2563eb','#06b6d4'],b2:['#7c3aed','#db2777'],b3:['#059669','#10b981']},
+ {name:'3. Rose Pink',bg:'#1f0a16',card:'#2e1220',text:'#fff1f5',mute:'#e5a8c0',pink:'#ff2e7e',violet:'#ff7eb6',b1:['#ff2e7e','#ff8a5c'],b2:['#ec4899','#f472b6'],b3:['#f43f5e','#fb7185']},
+ {name:'4. Emerald Green',bg:'#04150f',card:'#0d2a1e',text:'#ecfdf5',mute:'#8fc9ae',pink:'#10b981',violet:'#34d399',b1:['#059669','#34d399'],b2:['#0d9488','#2dd4bf'],b3:['#16a34a','#4ade80']},
+ {name:'5. Sunset Orange',bg:'#1a0b02',card:'#2b1405',text:'#fff7ed',mute:'#e8b795',pink:'#f97316',violet:'#ef4444',b1:['#f97316','#ef4444'],b2:['#ea580c','#f59e0b'],b3:['#dc2626','#fb7185']},
+ {name:'6. Ocean Teal',bg:'#02181c',card:'#0a2e33',text:'#ecfeff',mute:'#8fc7cd',pink:'#06b6d4',violet:'#0ea5e9',b1:['#06b6d4','#0ea5e9'],b2:['#0891b2','#22d3ee'],b3:['#0d9488','#14b8a6']},
+ {name:'7. Golden Luxury',bg:'#120d00',card:'#241a05',text:'#fefce8',mute:'#d6c48a',pink:'#f59e0b',violet:'#eab308',b1:['#f59e0b','#eab308'],b2:['#b45309','#facc15'],b3:['#a16207','#ca8a04']},
+ {name:'8. Cherry Red',bg:'#170404',card:'#2a0a0a',text:'#fef2f2',mute:'#e5a0a0',pink:'#ef4444',violet:'#dc2626',b1:['#ef4444','#dc2626'],b2:['#b91c1c','#f87171'],b3:['#991b1b','#ef4444']},
+ {name:'9. Lavender Dream',bg:'#150e22',card:'#241a38',text:'#f5f3ff',mute:'#c4b5fd',pink:'#a78bfa',violet:'#c084fc',b1:['#a78bfa','#c084fc'],b2:['#8b5cf6','#d8b4fe'],b3:['#7c3aed','#a78bfa']},
+ {name:'10. Neon Cyber',bg:'#02010a',card:'#0a0a1f',text:'#e0f2fe',mute:'#7dd3fc',pink:'#22d3ee',violet:'#e879f9',b1:['#22d3ee','#e879f9'],b2:['#a855f7','#ec4899'],b3:['#22c55e','#84cc16']},
+ {name:'11. Coffee Brown',bg:'#120a04',card:'#241708',text:'#fef3c7',mute:'#d6b48a',pink:'#a16207',violet:'#92400e',b1:['#a16207','#92400e'],b2:['#78350f','#b45309'],b3:['#44403c','#78716c']},
+ {name:'12. Ice White',bg:'#f1f5f9',card:'#ffffff',text:'#0f172a',mute:'#64748b',pink:'#0ea5e9',violet:'#6366f1',b1:['#0ea5e9','#6366f1'],b2:['#8b5cf6','#ec4899'],b3:['#10b981','#059669']},
+ {name:'13. Barbie Pink',bg:'#1e0714',card:'#331026',text:'#fdf2f8',mute:'#f0a6d1',pink:'#ff4fc3',violet:'#ff8ae2',b1:['#ff4fc3','#ff8ae2'],b2:['#e879f9','#f472b6'],b3:['#fb7185','#fda4af']},
+ {name:'14. Dark Monster',bg:'#000000',card:'#111111',text:'#ffffff',mute:'#a3a3a3',pink:'#22ff88',violet:'#00ffcc',b1:['#22ff88','#00ffcc'],b2:['#a3e635','#22c55e'],b3:['#facc15','#f97316']},
+];
+function applyTheme(i){
+  var t=THEMES[i]; var r=document.documentElement.style;
+  r.setProperty('--bg',t.bg); r.setProperty('--card',t.card); r.setProperty('--text',t.text); r.setProperty('--mute',t.mute);
+  r.setProperty('--pink',t.pink); r.setProperty('--violet',t.violet);
+  r.setProperty('--b1a',t.b1[0]); r.setProperty('--b1b',t.b1[1]); r.setProperty('--b2a',t.b2[0]); r.setProperty('--b2b',t.b2[1]); r.setProperty('--b3a',t.b3[0]); r.setProperty('--b3b',t.b3[1]);
+  document.body.style.background='radial-gradient(120% 60% at 50% 0,'+t.violet+'33 0,'+t.bg+' 60%) no-repeat,'+t.bg;
+  document.querySelector('meta[name="theme-color"]').content=t.bg;
+  try{localStorage.setItem('amelia_theme',String(i));}catch(e){}
+  document.querySelectorAll('.themeBtn').forEach(function(b,idx){b.classList.toggle('active',idx===i)});
+  showToast(t.name+' Applied ✨');
+}
+function showToast(msg){var el=document.getElementById('toast');el.textContent=msg;el.style.display='block';setTimeout(function(){el.style.display='none'},1800);}
+// Build theme buttons
+var grid=document.getElementById('themeGrid');
+THEMES.forEach(function(t,i){
+  var b=document.createElement('button'); b.className='themeBtn'; b.style.background='linear-gradient(100deg,'+t.b1[0]+','+t.b2[0]+')';
+  b.innerHTML='<b>'+t.name+'</b><small>Tap to preview</small><span class="dots"><i style="background:'+t.b1[0]+'"></i><i style="background:'+t.b2[0]+'"></i><i style="background:'+t.b3[0]+'"></i></span>';
+  b.onclick=function(){applyTheme(i); updateStats();};
+  grid.appendChild(b);
+});
+// Visits
+function todayKey(){var d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function getNum(k){try{return parseInt(localStorage.getItem(k)||'0')||0}catch(e){return 0}}
+function updateStats(){
+  var tk='visit_'+todayKey(); var today=getNum(tk); var total=getNum('visit_total');
+  document.getElementById('dailyCount').textContent=today;
+  document.getElementById('statToday').textContent=today;
+  document.getElementById('statTotal').textContent=total;
+  document.getElementById('todayLabel').textContent='Today • '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+}
+try{
+  var tk='visit_'+todayKey();
+  if(!sessionStorage.getItem('counted_'+tk)){ localStorage.setItem(tk,String(getNum(tk)+1)); localStorage.setItem('visit_total',String(getNum('visit_total')+1)); sessionStorage.setItem('counted_'+tk,'1'); }
+}catch(e){}
+updateStats();
+// Load saved theme
+try{var saved=localStorage.getItem('amelia_theme'); if(saved!==null) applyTheme(parseInt(saved));}catch(e){}
+// Load saved links
+try{
+  var sL1=localStorage.getItem('amelia_l1'), sL2=localStorage.getItem('amelia_l2'), sL3=localStorage.getItem('amelia_l3'), sBio=localStorage.getItem('amelia_bio');
+  if(sL1) CFG.l1=sL1; if(sL2) CFG.l2=sL2; if(sL3) CFG.l3=sL3; if(sBio) CFG.bio=sBio;
   document.getElementById('bio').textContent=CFG.bio;
-  ['l1','l2','l3'].forEach(function(k){document.getElementById(k).href=CFG[k];});
-
-  function ok(){
-    try{var t=+localStorage.getItem(KEY);return t&&Date.now()-t<REMEMBER_HOURS*36e5;}catch(e){return false;}
-  }
-  function open(){gate.hidden=true;document.body.classList.remove('locked');}
-  if(ok()) open();
-
-  document.getElementById('yes').onclick=function(){
-    try{localStorage.setItem(KEY,String(Date.now()));}catch(e){}
-    open();
-  };
-  document.getElementById('no').onclick=function(){box.classList.add('denied');};
-  document.getElementById('back').onclick=function(){box.classList.remove('denied');};
-})();
+  document.getElementById('l1').href=CFG.l1; document.getElementById('l2').href=CFG.l2; document.getElementById('l3').href=CFG.l3;
+}catch(e){}
+// Secret Admin: 5 taps in 10 sec on lock
+var taps=[];
+document.getElementById('lockBtn').addEventListener('click',function(){
+  var now=Date.now(); taps.push(now); taps=taps.filter(function(t){return now-t<10000});
+  if(taps.length>=5){ taps=[]; openAdmin(); }
+});
+function openAdmin(){
+  document.getElementById('inL1').value=CFG.l1==='#'?'':CFG.l1;
+  document.getElementById('inL2').value=CFG.l2==='#'?'':CFG.l2;
+  document.getElementById('inL3').value=CFG.l3==='#'?'':CFG.l3;
+  document.getElementById('inBio').value=CFG.bio;
+  updateStats();
+  document.getElementById('adminOverlay').classList.add('open');
+}
+document.getElementById('closeAdmin').onclick=function(){document.getElementById('adminOverlay').classList.remove('open')};
+document.getElementById('saveLinks').onclick=function(){
+  CFG.l1=document.getElementById('inL1').value||'#'; CFG.l2=document.getElementById('inL2').value||'#'; CFG.l3=document.getElementById('inL3').value||'#'; CFG.bio=document.getElementById('inBio').value||CFG.bio;
+  try{localStorage.setItem('amelia_l1',CFG.l1);localStorage.setItem('amelia_l2',CFG.l2);localStorage.setItem('amelia_l3',CFG.l3);localStorage.setItem('amelia_bio',CFG.bio);}catch(e){}
+  document.getElementById('bio').textContent=CFG.bio;
+  document.getElementById('l1').href=CFG.l1; document.getElementById('l2').href=CFG.l2; document.getElementById('l3').href=CFG.l3;
+  showToast('Saved Successfully ✅');
+};
 </script>
 </body>
 </html>
