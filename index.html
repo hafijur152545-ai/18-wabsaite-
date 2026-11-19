@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="rating" content="adult">
+<meta name="theme-color" content="#0e0b1f">
+<title>আপনার নাম – অফিসিয়াল পেজ (১৮+)</title>
+<style>
+:root{--bg:#0e0b1f;--card:#17142e;--text:#f4f1ff;--mute:#a59fc8;--pink:#ff3d7f;--violet:#7c4dff;--line:#2a2548}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(120% 60% at 50% 0,#2a1658 0,var(--bg) 60%) no-repeat,var(--bg);color:var(--text);font-family:"Hind Siliguri","Noto Sans Bengali",system-ui,sans-serif;min-height:100vh;display:flex;justify-content:center}
+body.locked{overflow:hidden}
+body.locked main{filter:blur(14px);pointer-events:none;user-select:none}
+main{width:100%;max-width:440px;padding:32px 18px 40px;text-align:center;transition:filter .4s}
+.avatar{width:128px;height:128px;margin:0 auto 14px;border-radius:50%;padding:4px;background:linear-gradient(135deg,var(--pink),var(--violet))}
+.avatar div{width:100%;height:100%;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:44px;font-weight:700;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+h1{margin:0;font-size:30px}
+.sub{color:var(--mute);margin:6px 0 18px;font-size:15px}
+.bio{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-size:15px;line-height:1.5;margin-bottom:18px}
+.btn{display:flex;align-items:center;gap:14px;text-decoration:none;color:#fff;border-radius:18px;padding:16px;margin-bottom:12px;text-align:left;transition:transform .15s}
+.btn:active{transform:scale(.98)}
+.btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.ic{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:22px;flex:none}
+.btn b{display:block;font-size:17px}
+.btn small{opacity:.85;font-size:13px}
+.go{margin-left:auto;font-size:20px}
+.b1{background:linear-gradient(100deg,#ff3d7f,#ff5c5c)}
+.b2{background:linear-gradient(100deg,#a24dff,#5b4bf0)}
+.b3{background:linear-gradient(100deg,#12b886,#0a9f8f)}
+.trust{display:flex;justify-content:space-around;margin-top:22px;color:var(--mute);font-size:12.5px}
+.trust span{display:block;font-size:20px;margin-bottom:4px}
+footer{margin-top:22px;color:var(--mute);font-size:12px}
+
+/* Age gate */
+#gate{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;background:rgba(8,6,20,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#gate[hidden]{display:none}
+.box{width:100%;max-width:360px;background:linear-gradient(#1d1940,#14112b);border:1px solid var(--line);border-radius:24px;padding:28px 24px;text-align:center;box-shadow:0 20px 60px rgba(124,77,255,.35);animation:pop .35s ease-out}
+@keyframes pop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+@media (prefers-reduced-motion:reduce){.box{animation:none}}
+.badge{width:76px;height:76px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-size:28px;font-weight:800;background:linear-gradient(135deg,var(--pink),var(--violet));box-shadow:0 0 0 6px rgba(255,61,127,.18)}
+.box h2{margin:0 0 8px;font-size:23px}
+.box p{color:var(--mute);line-height:1.55;margin:0 0 18px;font-size:14.5px}
+.box button{display:block;width:100%;padding:15px;border-radius:14px;font:inherit;font-weight:700;font-size:16px;cursor:pointer;margin-top:10px;border:0}
+.box button:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.yes{background:linear-gradient(100deg,var(--pink),var(--violet));color:#fff}
+.no{background:transparent;color:var(--mute);border:1px solid var(--line)!important}
+.fine{margin-top:14px;font-size:11.5px;color:var(--mute)}
+#blocked{display:none}
+.box.denied #ask{display:none}
+.box.denied #blocked{display:block}
+</style>
+</head>
+<body class="locked">
+
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gt">
+  <div class="box" id="box">
+    <div class="badge">18+</div>
+    <div id="ask">
+      <h2 id="gt">আপনার বয়স কি ১৮ বছর বা তার বেশি?</h2>
+      <p>এই ওয়েবসাইটে শুধু প্রাপ্তবয়স্কদের জন্য কনটেন্ট আছে। চালিয়ে যেতে আপনার বয়স নিশ্চিত করুন।</p>
+      <button class="yes" id="yes" autofocus>হ্যাঁ, আমার বয়স ১৮+</button>
+      <button class="no" id="no">না, আমার বয়স ১৮ এর কম</button>
+      <div class="fine">"হ্যাঁ" চাপলে আপনি নিশ্চিত করছেন যে আপনার দেশের আইনে আপনি প্রাপ্তবয়স্ক।</div>
+    </div>
+    <div id="blocked">
+      <h2>দুঃখিত, প্রবেশ করা যাবে না</h2>
+      <p>এই পেজ শুধু ১৮ বছর বা তার বেশি বয়সীদের জন্য।</p>
+      <button class="no" id="back">আবার চেষ্টা করুন</button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <!-- ছবি দিতে চাইলে: নিচের <div id="av"> এর বদলে <img src="profile.jpg" alt="প্রোফাইল"> বসান -->
+  <div class="avatar"><div id="av">আ</div></div>
+  <h1 id="nm">আপনার নাম</h1>
+  <p class="sub">অফিসিয়াল পেজ · ১৮+</p>
+  <div class="bio" id="bio">এখানে আপনার সার্ভিস বা পেজ সম্পর্কে ১-২ লাইনে সত্যি কথা লিখুন।</div>
+
+  <a class="btn b1" href="#" id="l1" rel="noopener"><span class="ic">🎥</span><span><b>ভিডিও পেজ দেখুন</b><small>আমার কনটেন্ট প্ল্যাটফর্মে যান</small></span><span class="go">›</span></a>
+  <a class="btn b2" href="#" id="l2" rel="noopener"><span class="ic">💬</span><span><b>চ্যাট কমিউনিটি</b><small>টেলিগ্রাম / ডিসকর্ডে জয়েন করুন</small></span><span class="go">›</span></a>
+  <a class="btn b3" href="#" id="l3" rel="noopener"><span class="ic">📞</span><span><b>যোগাযোগ করুন</b><small>হোয়াটসঅ্যাপে মেসেজ পাঠান</small></span><span class="go">›</span></a>
+
+  <div class="trust">
+    <div><span>🔒</span>নিরাপদ লিংক</div>
+    <div><span>⚡</span>সাইনআপ লাগবে না</div>
+    <div><span>🔞</span>শুধু ১৮+</div>
+  </div>
+  <footer>© আপনার নাম · সব কনটেন্ট প্রাপ্তবয়স্ক ও সম্মতিপ্রাপ্ত</footer>
+</main>
+
+<script>
+/* ===== এখানে আপনার তথ্য বদলান ===== */
+var CFG = {
+  name: 'আপনার নাম',
+  bio:  'এখানে আপনার সার্ভিস বা পেজ সম্পর্কে ১-২ লাইনে সত্যি কথা লিখুন।',
+  l1: '#',   // ভিডিও/কনটেন্ট লিংক
+  l2: '#',   // টেলিগ্রাম/ডিসকর্ড লিংক
+  l3: '#'    // হোয়াটসঅ্যাপ লিংক
+};
+var REMEMBER_HOURS = 24; // কতক্ষণ পর আবার বয়স জিজ্ঞেস করবে
+/* ================================== */
+
+(function(){
+  var KEY='age18_ok', gate=document.getElementById('gate'), box=document.getElementById('box');
+  document.getElementById('nm').textContent=CFG.name;
+  document.getElementById('av').textContent=CFG.name.charAt(0);
+  document.getElementById('bio').textContent=CFG.bio;
+  ['l1','l2','l3'].forEach(function(k){document.getElementById(k).href=CFG[k];});
+
+  function ok(){
+    try{var t=+localStorage.getItem(KEY);return t&&Date.now()-t<REMEMBER_HOURS*36e5;}catch(e){return false;}
+  }
+  function open(){gate.hidden=true;document.body.classList.remove('locked');}
+  if(ok()) open();
+
+  document.getElementById('yes').onclick=function(){
+    try{localStorage.setItem(KEY,String(Date.now()));}catch(e){}
+    open();
+  };
+  document.getElementById('no').onclick=function(){box.classList.add('denied');};
+  document.getElementById('back').onclick=function(){box.classList.remove('denied');};
+})();
+</script>
+</body>
+</html>
