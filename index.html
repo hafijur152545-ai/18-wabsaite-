@@ -69,6 +69,38 @@ main.funnelOn .rotPill{display:none}
 .targetGlowRed{animation:targetPulseRed 1s ease-in-out infinite !important}
 @keyframes targetPulseRed{0%,100%{box-shadow:0 0 14px 3px #ff2e4d}50%{box-shadow:0 0 0 5px rgba(255,255,255,.25),0 0 36px 9px #ff2e4d}}
 main.allClosed #l1,main.allClosed #l3,main.allClosed #q1,main.allClosed #q3,main.allClosed .teaser{opacity:.5;filter:saturate(.4)}
+/* ROOM CHAT PAGE (Messenger style) */
+.chatOverlay{z-index:120;background:var(--bg)}
+.chatPage{height:100%;max-width:520px;margin:0 auto;display:flex;flex-direction:column;background:var(--bg)}
+.chatHead{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card);border-bottom:1px solid rgba(255,255,255,.08);flex:none}
+.chatBack{width:36px;height:36px;border:0;border-radius:50%;background:rgba(255,255,255,.12);color:var(--text);font-size:22px;line-height:1;cursor:pointer;flex:none}
+.chatAva{width:38px;height:38px;border-radius:50%;overflow:hidden;flex:none;border:2px solid var(--pink)}
+.chatAva img{width:100%;height:100%;object-fit:cover;display:block}
+.chatName{font-weight:800;color:var(--text);font-size:16px}
+.chatTick{color:#4db8ff;font-size:13px}
+.chatOn{margin-left:auto;color:#38e07b;font-size:11.5px;font-weight:700;display:flex;align-items:center;gap:5px}
+.chatOn i{width:8px;height:8px;border-radius:50%;background:#38e07b;box-shadow:0 0 8px #38e07b}
+.chatBody{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px}
+.cRow{display:flex;align-items:flex-end;gap:8px;max-width:88%}
+.cRow.me{align-self:flex-end;flex-direction:row-reverse}
+.cAva{width:26px;height:26px;border-radius:50%;overflow:hidden;flex:none}
+.cAva img{width:100%;height:100%;object-fit:cover}
+.cBub{padding:9px 13px;border-radius:16px;font-size:14px;line-height:1.45;color:var(--text);background:var(--card);border:1px solid rgba(255,255,255,.1);border-bottom-left-radius:5px;word-break:break-word}
+.cRow.me .cBub{background:linear-gradient(100deg,var(--pink),var(--violet));border:0;color:#fff;border-radius:16px;border-bottom-right-radius:5px}
+.cBub img{max-width:170px;max-height:190px;border-radius:12px;display:block;margin-top:4px;cursor:pointer}
+.cTime{font-size:10px;opacity:.65;margin-top:3px}
+.cSys{align-self:center;background:rgba(255,255,255,.08);color:var(--mute);font-size:12px;padding:7px 13px;border-radius:14px;max-width:92%;text-align:center}
+.chatBar{display:flex;gap:8px;align-items:center;padding:10px 12px 6px;background:var(--card);border-top:1px solid rgba(255,255,255,.08);flex:none}
+.chatPlus{width:42px;height:42px;border:0;border-radius:50%;background:rgba(255,255,255,.12);color:var(--text);font-size:18px;cursor:pointer;flex:none}
+#chatInput{flex:1;padding:12px 14px;border-radius:22px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.3);color:var(--text);font:inherit;font-size:14.5px;min-width:0}
+.chatSend{width:42px;height:42px;border:0;border-radius:50%;background:linear-gradient(100deg,var(--pink),var(--violet));color:#fff;font-size:17px;cursor:pointer;flex:none}
+.chatHint{font-size:11px;color:var(--mute);text-align:center;padding:5px 0 10px;flex:none}
+/* ADMIN CHAT TAB */
+.adminChatList{height:320px;overflow-y:auto;background:var(--card);border:1px solid #2a2548;border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.adminChatBar{display:flex;gap:8px;margin-bottom:10px}
+.adminChatBar input{flex:1;padding:12px 14px;border-radius:22px;border:1px solid #2a2548;background:#12102a;color:#fff;font:inherit;font-size:14px;min-width:0}
+.adminChatBar button{width:44px;height:44px;border:0;border-radius:50%;background:linear-gradient(100deg,#ff3d7f,#7c4dff);color:#fff;font-size:17px;cursor:pointer;flex:none}
+.tabDot{display:inline-block;min-width:17px;height:17px;border-radius:999px;background:#ff2e4d;color:#fff;font-size:11px;font-weight:800;line-height:17px;text-align:center;margin-left:5px;vertical-align:1px;padding:0 3px}
 /* PASSWORD + ADMIN */
 .overlay{position:fixed;inset:0;z-index:99;display:none;background:#0a081a;overflow-y:auto;padding:0}
 .overlay.open{display:block}
@@ -182,6 +214,16 @@ main.allClosed #l1,main.allClosed #l3,main.allClosed #q1,main.allClosed #q3,main
   <div id="adBottomSlot"></div>
 </main>
 
+<!-- ROOM CHAT PAGE -->
+<div class="overlay chatOverlay" id="chatOverlay">
+  <div class="chatPage">
+    <div class="chatHead"><button class="chatBack" id="chatBack">‹</button><span class="chatAva"><img id="chatAvaImg" src="" alt=""></span><span class="chatName">Amelia <span class="chatTick">✔</span></span><span class="chatOn"><i></i>Online</span></div>
+    <div class="chatBody" id="chatBody"></div>
+    <div class="chatBar"><button class="chatPlus" id="chatPic">📎</button><input id="chatInput" placeholder="Message…" autocomplete="off"><button class="chatSend" id="chatSendBtn">➤</button><input type="file" id="chatFile" accept="image/*" style="display:none"></div>
+    <div class="chatHint">🔒 Free private chat — messages auto-delete after 40 minutes</div>
+  </div>
+</div>
+
 <!-- PASSWORD -->
 <div class="overlay" id="passOverlay"><div class="passWrap"><div class="passBox"><div style="font-size:38px">🔒</div><h2>Admin Password</h2><p>Enter your admin password to open the Admin Panel.</p><input type="password" id="passInput" placeholder="Enter password" autocomplete="off"><button class="passBtn" id="passGo">Unlock Admin 🔓</button><div class="passErr" id="passErr">Wrong password. Try again.</div><div class="lockMsg" id="lockMsg">⛔ Too many wrong tries. Admin is locked — try again in <b id="lockLeft">5:00</b></div><button class="cancelBtn" id="passCancel">Cancel</button></div></div></div>
 
@@ -191,6 +233,7 @@ main.allClosed #l1,main.allClosed #l3,main.allClosed #q1,main.allClosed #q3,main
   <div class="tabs">
     <button class="tab active" data-tab="themes">🎨 Themes</button>
     <button class="tab" data-tab="ads">💰 Ads</button>
+    <button class="tab" data-tab="chat">💬 Chat<span id="chatBadge" class="tabDot" style="display:none">0</span></button>
     <button class="tab" data-tab="visitors">📊 Visitors</button>
     <button class="tab" data-tab="content">✏️ Content</button>
   </div>
@@ -214,6 +257,14 @@ main.allClosed #l1,main.allClosed #l3,main.allClosed #q1,main.allClosed #q3,main
   </div>
 
   <!-- VISITORS TAB -->
+  <div class="tabContent" id="tab-chat" style="display:none">
+    <p class="visDesc">Visitor der pathano message + pic ekhane dekhbe. Reply korle visitor er Room Chat page e seta dekhbe. Sob message 40 minute por auto delete hoy (free quota bacay). Test korte nijer phone e site khule Room Chat e message pathano, tarpor Refresh dao.</p>
+    <div class="adminChatList" id="adminChatList"></div>
+    <div class="adminChatBar"><input id="adminChatInput" placeholder="Reply as Amelia…"><button id="adminChatSend">➤</button></div>
+    <button class="refreshBtn" id="chatRefresh">🔄 Refresh</button>
+    <button id="chatDelAll" style="width:100%;margin-top:10px;padding:12px;border:0;border-radius:12px;background:#7f1d1d;color:#fecaca;font-weight:800;cursor:pointer">🗑 Delete All Messages</button>
+  </div>
+
   <div class="tabContent" id="tab-visitors" style="display:none">
     <p class="visDesc">Every day at 6:00 AM the count resets. Unique Visit = 1 new device = 1 view. Same device again after 5 hours = +1 new view. Ads View = a page load where at least one Ad is ON. Your own phone is not counted.</p>
     <div class="visGrid"><div class="visBox"><small>Today's Unique Visit</small><b class="orange" id="statToday">0</b></div><div class="visBox"><small>Today's Ads View</small><b class="green" id="statAdsToday">0</b></div></div>
@@ -342,9 +393,26 @@ function taskDone(key){
 }
 /* Closed mode: calls are "busy" — visitor gets this one SMS, after that nothing more until tasks reset. */
 function busyTap(){if(!busyTold){busyTold=true;toast('😔 Sorry, all calls are busy right now — please come back later. Thanks!')}}
+/* A call button with all tasks done but NO link set (#) is "off": SMS redirects the
+   visitor to the other call button and that button flashes red until tapped. */
+function linkMissing(id){var el=document.getElementById(id);if(!el)return true;var h=el.getAttribute('href')||'';return !h||h==='#'}
+function offRedirect(key,e,fromTeaser){
+  e.preventDefault();
+  if(fState.stage==='watching')return;
+  var oid=(key==='t1')?'l3':'l1';
+  fShow(true);fSec.style.display='none';
+  fMsg.textContent=(key==='t1')?'📢 Join Free Call is off right now — please call me on FREE CALL 👇 Call me 💕':'📢 Free Call is off right now — please call me on JOIN FREE CALL 👆 Call me 💕';
+  fGlow(oid,true);
+  setTimeout(function(){if(fState.stage==='idle'&&fMsg.textContent.indexOf('is off right now')>0)fShow(false)},4500);
+}
 function gatedTap(key,e){
   tCheckReset();
-  if(tAllDone(key)){applyClosed();if(bothDone()){e.preventDefault();busyTap()}return} /* tasks finished: link opens normally */
+  if(tAllDone(key)){
+    applyClosed();
+    if(bothDone()){e.preventDefault();busyTap();return}
+    if(linkMissing(key==='t1'?'l1':'l3')){offRedirect(key,e,false);return} /* link not set: redirect */
+    return; /* link set: opens normally */
+  }
   e.preventDefault();
   if(fState.stage==='watching') return;
   startTask(key);
@@ -352,7 +420,11 @@ function gatedTap(key,e){
 function teaserTap(key,e){
   tCheckReset();
   var f=TASKS[key];
-  if(tAllDone(key)){if(bothDone()){e.preventDefault();busyTap()}return} /* own tasks done: link opens normally */
+  if(tAllDone(key)){
+    if(bothDone()){e.preventDefault();busyTap();return}
+    if(linkMissing(key==='t1'?'l1':'l3')){offRedirect(key,e,true);return}
+    return; /* own tasks done + link set: opens normally */
+  }
   e.preventDefault();
   if(fState.stage==='watching') return;
   fShow(true);
@@ -365,17 +437,12 @@ function teaserTap(key,e){
 ['l3','q3'].forEach(function(id){document.getElementById(id).addEventListener('click',function(e){gatedTap('t2',e)})});
 document.getElementById('t1').addEventListener('click',function(e){teaserTap('t1',e)});
 document.getElementById('t2').addEventListener('click',function(e){teaserTap('t2',e)});
-/* Room Chat: tapping it before finishing the tasks still opens the chat, but an auto
-   SMS reminds them (~4.5s) to complete the tasks above to join the calls free. */
-function roomChatTap(){
-  tCheckReset();fClearGlow();
-  if(bothDone())return;
-  var msg=(TASKS.t1.done===0&&TASKS.t2.done===0)
-    ?'💬 Hi! To join my Video Call & Free Call, first complete the tasks above — then come back & chat/call me free 💕'
-    :'⚠️ Almost done! Complete the remaining tasks above to join my calls & chat free 💕';
-  fShow(true);fMsg.textContent=msg;fSec.style.display='none';
-  fState={stage:'idle',active:null};
-  setTimeout(function(){if(fMsg.textContent===msg)fShow(false)},4500);
+/* Room Chat opens the in-site Messenger-style chat page. If the tasks aren't done
+   yet, Amelia greets them with the task reminder inside the chat (see renderChat). */
+function roomChatTap(e){
+  e.preventDefault();
+  tCheckReset();fClearGlow();fShow(false);
+  openChat();
 }
 document.getElementById('l2').addEventListener('click',roomChatTap);
 document.getElementById('q2').addEventListener('click',roomChatTap);
@@ -384,11 +451,118 @@ tBadges();applyClosed();
    free quota can never fill up. Safety sweeper: every 40 minutes all leftover
    messages/glow are cleared automatically. */
 setInterval(function(){try{var t=document.getElementById('toast');if(t)t.style.display='none';if(fState.stage!=='watching'){fShow(false);fClearGlow()}}catch(e){}},40*60*1000);
+
+// --- ROOM CHAT ENGINE (Messenger-style, in-site) ---
+// Visitor texts/pics land in Firebase /amelia_chat so the admin sees them in the
+// admin panel Chat tab and can reply. No Firebase / blocked rules -> messages keep
+// working locally on that device. ALL messages auto-delete after 40 minutes.
+var CHAT_TTL=40*60*1000, chatTimer=null, adminChatTimer=null, chatCloud={};
+var chatLocal=[];
+try{chatLocal=JSON.parse(localStorage.getItem('amelia_chat')||'[]')||[]}catch(e){chatLocal=[]}
+function chatSaveLocal(){try{localStorage.setItem('amelia_chat',JSON.stringify(chatLocal.slice(-80)))}catch(e){}}
+function chatAvaSrc(){var im=document.querySelector('.avatar img');return im?im.src:''}
+function chatEsc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function chatFmtT(ts){var d=new Date(ts);return d.getHours()+':'+('0'+d.getMinutes()).slice(-2)}
+function chatFetch(){ if(!FB_ON) return Promise.resolve(null); var t=(fbAuth?fbToken().catch(function(){return null}):Promise.resolve(null)); return t.then(function(k){ return fetch(fbDB()+'/amelia_chat.json'+(k?'?auth='+k:'')).then(function(r){return r.ok?r.json():null}).catch(function(){return null}); }); }
+function chatDel(id){ if(!FB_ON) return; var url=fbDB()+'/amelia_chat/'+encodeURIComponent(id)+'.json'; var t=(fbAuth?fbToken().catch(function(){return null}):Promise.resolve(null)); t.then(function(k){ fetch(url+(k?'?auth='+k:''),{method:'DELETE'}).catch(function(){}) }); }
+function chatPruneCloud(){ var cut=Date.now()-CHAT_TTL; if(chatCloud)Object.keys(chatCloud).forEach(function(id){var m=chatCloud[id];if(m&&typeof m.ts==='number'&&m.ts<cut)chatDel(id)}); }
+function chatMessages(){
+  var cut=Date.now()-CHAT_TTL, seen={}, out=[];
+  if(chatCloud)Object.keys(chatCloud).forEach(function(id){var m=chatCloud[id];if(m&&typeof m.ts==='number'&&m.ts>cut){seen[id]=1;out.push({id:id,who:m.who==='admin'?'admin':'vis',text:m.text||'',pic:m.pic||'',ts:m.ts})}});
+  chatLocal.forEach(function(m){if(m&&m.ts>cut&&!seen[m.id])out.push({id:m.id,who:m.who==='admin'?'admin':'vis',text:m.text||'',pic:m.pic||'',ts:m.ts,pending:m.pending})});
+  out.sort(function(a,b){return a.ts-b.ts});
+  return out.slice(-60);
+}
+function chatHTML(adminView){
+  var list=chatMessages(), html='';
+  if(!list.length) html+='<div class="cSys">💬 No messages yet — say hi! 👋</div>';
+  list.forEach(function(m){
+    var mine=(adminView?m.who==='admin':m.who==='vis');
+    var ava='<span class="cAva"><img src="'+chatAvaSrc()+'" alt=""></span>';
+    var inner='<div class="cBub">'+(m.text?'<div>'+chatEsc(m.text).replace(/\n/g,'<br>')+'</div>':'')+(m.pic?'<img src="'+m.pic+'" alt="pic">':'')+(m.pending?'<div class="cTime">⏳ sending…</div>':'')+'<div class="cTime">'+chatFmtT(m.ts)+'</div></div>';
+    html+='<div class="cRow'+(mine?' me':'')+'">'+(mine?'':ava)+inner+'</div>';
+  });
+  return html;
+}
+function renderChat(){
+  var list=chatMessages(), html='';
+  if(!list.length) html+='<div class="cSys">💬 No messages yet — say hi! 👋</div>';
+  list.forEach(function(m){
+    var mine=m.who==='vis';
+    var ava='<span class="cAva"><img src="'+chatAvaSrc()+'" alt=""></span>';
+    var inner='<div class="cBub">'+(m.text?'<div>'+chatEsc(m.text).replace(/\n/g,'<br>')+'</div>':'')+(m.pic?'<img src="'+m.pic+'" alt="pic">':'')+(m.pending?'<div class="cTime">⏳ sending…</div>':'')+'<div class="cTime">'+chatFmtT(m.ts)+'</div></div>';
+    html+='<div class="cRow'+(mine?' me':'')+'">'+(mine?'':ava)+inner+'</div>';
+  });
+  /* Amelia greeting + task reminder (ephemeral — always visible while tasks incomplete) */
+  if(!list.length) html+='<div class="cRow"><span class="cAva"><img src="'+chatAvaSrc()+'" alt=""></span><div class="cBub">💬 Hi! I\'m Amelia — text me here, I reply very fast 💕</div></div>';
+  if(!bothDone()) html+='<div class="cRow"><span class="cAva"><img src="'+chatAvaSrc()+'" alt=""></span><div class="cBub">'
+    +((TASKS.t1.done===0&&TASKS.t2.done===0)
+      ?'💬 Hi! To join my Video Call &amp; Free Call, first complete the tasks on the main page — then come back &amp; chat/call me free 💕'
+      :'⚠️ Almost done! Complete the remaining tasks on the main page to join my calls &amp; chat free 💕')
+    +'</div></div>';
+  var b=document.getElementById('chatBody'); b.innerHTML=html; b.scrollTop=b.scrollHeight;
+}
+function renderAdminChat(){ var el=document.getElementById('adminChatList'); if(!el)return; el.innerHTML=chatHTML(true); el.scrollTop=el.scrollHeight; }
+function renderAllChats(){ renderChat(); renderAdminChat(); }
+function chatSendMsg(text,pic,sender){
+  text=(text||'').trim(); if(!text&&!pic)return;
+  if(text.length>800)text=text.slice(0,800);
+  var m={id:'L'+Date.now()+Math.floor(Math.random()*999),who:sender,text:text,pic:pic||'',ts:Date.now(),pending:true};
+  chatLocal.push(m); chatSaveLocal(); renderAllChats();
+  if(!FB_ON){ m.pending=false; chatSaveLocal(); renderAllChats(); return; }
+  var t=(fbAuth?fbToken().catch(function(){return null}):Promise.resolve(null));
+  t.then(function(k){
+    fetch(fbDB()+'/amelia_chat.json'+(k?'?auth='+k:''),{method:'POST',body:JSON.stringify({who:sender,text:m.text,pic:m.pic,ts:m.ts})}).then(function(r){return r.json()}).then(function(j){
+      if(j&&j.name){ m.id=j.name; } m.pending=false; chatSaveLocal(); renderAllChats();
+    }).catch(function(){ m.pending=false; chatSaveLocal(); renderAllChats(); });
+  });
+}
+function chatPoll(){ chatFetch().then(function(j){ if(j)chatCloud=j; chatPruneCloud(); renderChat(); }); }
+function adminChatPoll(){ chatFetch().then(function(j){ if(j)chatCloud=j; chatPruneCloud(); renderAdminChat(); }); }
+function openChat(){
+  document.getElementById('chatOverlay').classList.add('open');
+  document.getElementById('chatAvaImg').src=chatAvaSrc();
+  renderChat();
+  chatPoll();
+  if(chatTimer)clearInterval(chatTimer);
+  chatTimer=setInterval(chatPoll,4000);
+}
+function closeChat(){ document.getElementById('chatOverlay').classList.remove('open'); if(chatTimer){clearInterval(chatTimer);chatTimer=null} }
+document.getElementById('chatBack').onclick=closeChat;
+document.getElementById('chatSendBtn').onclick=function(){ var v=document.getElementById('chatInput').value; document.getElementById('chatInput').value=''; chatSendMsg(v,'','vis'); };
+document.getElementById('chatInput').addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); document.getElementById('chatSendBtn').onclick(); } });
+document.getElementById('chatPic').onclick=function(){ document.getElementById('chatFile').click(); };
+document.getElementById('chatFile').onchange=function(){
+  var f=this.files&&this.files[0]; this.value=''; if(!f)return;
+  var fr=new FileReader();
+  fr.onload=function(){ var im=new Image(); im.onload=function(){
+    var mx=640,s=Math.min(1,mx/Math.max(im.width,im.height)),w=Math.max(1,Math.round(im.width*s)),h=Math.max(1,Math.round(im.height*s));
+    var c=document.createElement('canvas'); c.width=w; c.height=h; c.getContext('2d').drawImage(im,0,0,w,h);
+    chatSendMsg('',c.toDataURL('image/jpeg',0.72),'vis');
+  }; im.src=fr.result; };
+  fr.readAsDataURL(f);
+};
+/* Admin panel: unread badge on the Chat tab */
+function markChatSeen(){ try{localStorage.setItem('amelia_chat_seen',''+Date.now())}catch(e){} var b=document.getElementById('chatBadge'); if(b)b.style.display='none'; }
+function checkChatBadge(){
+  if(!FB_ON){ return; }
+  chatFetch().then(function(j){
+    if(!j)return;
+    var seen=0; try{seen=parseInt(localStorage.getItem('amelia_chat_seen'))||0}catch(e){}
+    var cut=Date.now()-CHAT_TTL,n=0;
+    Object.keys(j).forEach(function(id){var m=j[id];if(m&&m.who==='vis'&&typeof m.ts==='number'&&m.ts>seen&&m.ts>cut)n++});
+    var b=document.getElementById('chatBadge');
+    if(b){ if(n>0){b.textContent=n>9?'9+':''+n;b.style.display='inline-block'} else b.style.display='none'; }
+  });
+}
+checkChatBadge(); setInterval(checkChatBadge,30000);
 // Tabs
 document.querySelectorAll('.tab').forEach(function(tab){
   tab.onclick=function(){
     document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});tab.classList.add('active');
-    ['themes','ads','visitors','content'].forEach(function(k){document.getElementById('tab-'+k).style.display=(k===tab.dataset.tab?'block':'none')});
+    ['themes','ads','chat','visitors','content'].forEach(function(k){document.getElementById('tab-'+k).style.display=(k===tab.dataset.tab?'block':'none')});
+    if(tab.dataset.tab==='chat'){ markChatSeen(); adminChatPoll(); if(!adminChatTimer)adminChatTimer=setInterval(adminChatPoll,4000); }
+    else if(adminChatTimer){ clearInterval(adminChatTimer); adminChatTimer=null; }
   }
 });
 // Visits
@@ -626,6 +800,17 @@ function applyRemote(j){ if(!j) return; try{
 if(FB_ON){ fetch(fbDB()+'/amelia.json').then(function(r){return r.json()}).then(applyRemote).catch(function(){}); }
 var _saveAds=saveAds; saveAds=function(){ _saveAds(); cloudPush(); };
 var _applyTheme=applyTheme; applyTheme=function(i,silent){ _applyTheme(i,silent); if(!silent) cloudPush(); };
+/* Admin chat wiring (after FB_ON is set) */
+document.getElementById('adminChatSend').onclick=function(){ var v=document.getElementById('adminChatInput').value.trim(); if(!v)return; document.getElementById('adminChatInput').value=''; chatSendMsg(v,'','admin'); };
+document.getElementById('adminChatInput').addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); document.getElementById('adminChatSend').onclick(); } });
+document.getElementById('chatRefresh').onclick=function(){ adminChatPoll(); markChatSeen(); toast('Chat refreshed 🔄'); };
+document.getElementById('chatDelAll').onclick=function(){
+  if(!confirm('Delete ALL chat messages?'))return;
+  chatLocal=[]; chatSaveLocal(); chatCloud={}; renderAdminChat();
+  if(FB_ON){ var t=(fbAuth?fbToken().catch(function(){return null}):Promise.resolve(null)); t.then(function(k){ fetch(fbDB()+'/amelia_chat.json'+(k?'?auth='+k:''),{method:'DELETE'}).catch(function(){}) }); }
+  toast('All messages deleted 🗑');
+};
+checkChatBadge();
 </script>
 </body>
 </html>
