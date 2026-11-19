@@ -101,6 +101,21 @@ main.allClosed #l1,main.allClosed #l3,main.allClosed #q1,main.allClosed #q3,main
 .adminChatBar input{flex:1;padding:12px 14px;border-radius:22px;border:1px solid #2a2548;background:#12102a;color:#fff;font:inherit;font-size:14px;min-width:0}
 .adminChatBar button{width:44px;height:44px;border:0;border-radius:50%;background:linear-gradient(100deg,#ff3d7f,#7c4dff);color:#fff;font-size:17px;cursor:pointer;flex:none}
 .tabDot{display:inline-block;min-width:17px;height:17px;border-radius:999px;background:#ff2e4d;color:#fff;font-size:11px;font-weight:800;line-height:17px;text-align:center;margin-left:5px;vertical-align:1px;padding:0 3px}
+/* Messenger-style inbox (admin) */
+.chatConvList{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.cConv{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card);border:1px solid #2a2548;border-radius:14px;cursor:pointer}
+.cConv:hover{border-color:#7c4dff}
+.cConvAva{width:42px;height:42px;border-radius:50%;background:linear-gradient(100deg,#7c4dff,#ff3d7f);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none;font-size:17px}
+.cConvInfo{flex:1;min-width:0}
+.cConvName{color:#fff;font-weight:700;font-size:14px}
+.cConvLast{color:#8b86b8;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cConvMeta{text-align:right;flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.cConvTime{color:#8b86b8;font-size:11px}
+.cConvDot{display:inline-block;min-width:18px;height:18px;border-radius:999px;background:#ff2e4d;color:#fff;font-size:11px;font-weight:800;line-height:18px;text-align:center;padding:0 4px}
+.threadHead{display:flex;align-items:center;gap:10px;padding:10px;background:var(--card);border:1px solid #2a2548;border-radius:14px;margin-bottom:12px}
+.threadBack{width:34px;height:34px;border:0;border-radius:50%;background:#2a2548;color:#fff;font-size:20px;line-height:1;cursor:pointer;flex:none}
+.threadName{color:#fff;font-weight:800;font-size:15px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.threadDel{background:#7f1d1d;color:#fecaca;border:0;border-radius:10px;padding:8px 12px;cursor:pointer;font-weight:700;flex:none}
 /* PASSWORD + ADMIN */
 .overlay{position:fixed;inset:0;z-index:99;display:none;background:#0a081a;overflow-y:auto;padding:0}
 .overlay.open{display:block}
@@ -258,11 +273,17 @@ main.allClosed #l1,main.allClosed #l3,main.allClosed #q1,main.allClosed #q3,main
 
   <!-- VISITORS TAB -->
   <div class="tabContent" id="tab-chat" style="display:none">
-    <p class="visDesc">Visitor der pathano message + pic ekhane dekhbe. Reply korle visitor er Room Chat page e seta dekhbe. Sob message 40 minute por auto delete hoy (free quota bacay). Test korte nijer phone e site khule Room Chat e message pathano, tarpor Refresh dao.</p>
-    <div class="adminChatList" id="adminChatList"></div>
-    <div class="adminChatBar"><input id="adminChatInput" placeholder="Reply as Amelia…"><button id="adminChatSend">➤</button></div>
-    <button class="refreshBtn" id="chatRefresh">🔄 Refresh</button>
-    <button id="chatDelAll" style="width:100%;margin-top:10px;padding:12px;border:0;border-radius:12px;background:#7f1d1d;color:#fecaca;font-weight:800;cursor:pointer">🗑 Delete All Messages</button>
+    <p class="visDesc">Messenger-er moto inbox: prottek visitor er alada private chat (nijer Guest ID). Visitor shudhu tar ar Amelia r message dekhe — onno visitor er message dekhe na. List e ke ghure click korle tar puro kothopokkhon khulbe, reply korle shudhu tar kache jabe. Sob message + pic 40 minute por auto delete hoy (free quota bacay). Test: nijer phone e Room Chat e message pathano, tarpor ekhane Refresh dao.</p>
+    <div id="chatListView">
+      <div class="chatConvList" id="chatConvList"></div>
+      <button class="refreshBtn" id="chatRefresh">🔄 Refresh</button>
+      <button id="chatDelAll" style="width:100%;margin-top:10px;padding:12px;border:0;border-radius:12px;background:#7f1d1d;color:#fecaca;font-weight:800;cursor:pointer">🗑 Delete All Conversations</button>
+    </div>
+    <div id="threadView" style="display:none">
+      <div class="threadHead"><button class="threadBack" id="threadBack">‹</button><span class="threadName" id="threadName"></span><button class="threadDel" id="threadDel">🗑 Delete</button></div>
+      <div class="adminChatList" id="adminChatList"></div>
+      <div class="adminChatBar"><input id="adminChatInput" placeholder="Reply as Amelia…"><button id="adminChatSend">➤</button></div>
+    </div>
   </div>
 
   <div class="tabContent" id="tab-visitors" style="display:none">
@@ -452,10 +473,12 @@ tBadges();applyClosed();
    messages/glow are cleared automatically. */
 setInterval(function(){try{var t=document.getElementById('toast');if(t)t.style.display='none';if(fState.stage!=='watching'){fShow(false);fClearGlow()}}catch(e){}},40*60*1000);
 
-// --- ROOM CHAT ENGINE (Messenger-style, in-site) ---
-// Visitor texts/pics land in Firebase /amelia_chat so the admin sees them in the
-// admin panel Chat tab and can reply. No Firebase / blocked rules -> messages keep
-// working locally on that device. ALL messages auto-delete after 40 minutes.
+// --- ROOM CHAT ENGINE (Messenger-style PRIVATE threads) ---
+// Prottek visitor er nijer random thread id (amelia_vid) + Guest name. Messages live
+// at amelia_chat/<tid> (thread) and amelia_chat/_meta/<tid> (inbox preview for admin).
+// Visitor shudhu nijer thread read/write kore — onno visitor er message kokhono load
+// hoy na. Admin inbox e sob thread alada list hoy. ALL messages auto-delete after
+// 40 minutes. No Firebase / blocked rules -> same-device local mirror still works.
 var CHAT_TTL=40*60*1000, chatTimer=null, adminChatTimer=null, chatCloud={};
 var chatLocal=[];
 try{chatLocal=JSON.parse(localStorage.getItem('amelia_chat')||'[]')||[]}catch(e){chatLocal=[]}
@@ -463,9 +486,35 @@ function chatSaveLocal(){try{localStorage.setItem('amelia_chat',JSON.stringify(c
 function chatAvaSrc(){var im=document.querySelector('.avatar img');return im?im.src:''}
 function chatEsc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function chatFmtT(ts){var d=new Date(ts);return d.getHours()+':'+('0'+d.getMinutes()).slice(-2)}
-function chatFetch(){ if(!FB_ON) return Promise.resolve(null); var t=(fbAuth?fbToken().catch(function(){return null}):Promise.resolve(null)); return t.then(function(k){ return fetch(fbDB()+'/amelia_chat.json'+(k?'?auth='+k:'')).then(function(r){return r.ok?r.json():null}).catch(function(){return null}); }); }
-function chatDel(id){ if(!FB_ON) return; var url=fbDB()+'/amelia_chat/'+encodeURIComponent(id)+'.json'; var t=(fbAuth?fbToken().catch(function(){return null}):Promise.resolve(null)); t.then(function(k){ fetch(url+(k?'?auth='+k:''),{method:'DELETE'}).catch(function(){}) }); }
-function chatPruneCloud(){ var cut=Date.now()-CHAT_TTL; if(chatCloud)Object.keys(chatCloud).forEach(function(id){var m=chatCloud[id];if(m&&typeof m.ts==='number'&&m.ts<cut)chatDel(id)}); }
+/* Visitor identity (Messenger-er moto): random unguessable thread id + Guest name */
+function vidGet(){
+  var v=null; try{v=localStorage.getItem('amelia_vid')}catch(e){}
+  if(!v){ v='v'+Date.now().toString(36)+Math.floor(Math.random()*1679616).toString(36); try{localStorage.setItem('amelia_vid',v)}catch(e){} }
+  return v;
+}
+function vnameGet(){
+  var n=null; try{n=localStorage.getItem('amelia_vname')}catch(e){}
+  if(!n){ n='Guest-'+Math.floor(1000+Math.random()*9000); try{localStorage.setItem('amelia_vname',n)}catch(e){} }
+  return n;
+}
+/* Cloud helpers: chatGet(tid,sub) / chatDel(tid,sub) / chatPut(tid,sub,obj) — sub optional */
+function chatAuth(){ return fbAuth?fbToken().catch(function(){return null}):Promise.resolve(null); }
+function chatURL(tid,sub,k,extra){
+  return fbDB()+'/amelia_chat/'+encodeURIComponent(tid)+(sub?('/'+sub):'')+'.json'+(k?'?auth='+k:'')+(extra?((k?'&':'?')+extra):'');
+}
+function chatGet(tid,sub,extra){ if(!FB_ON) return Promise.resolve(null);
+  return chatAuth().then(function(k){ return fetch(chatURL(tid,sub,k,extra)).then(function(r){return r.ok?r.json():null}).catch(function(){return null}); }); }
+function chatDel(tid,sub){ if(!FB_ON) return; chatAuth().then(function(k){ fetch(chatURL(tid,sub,k),{method:'DELETE'}).catch(function(){}); }); }
+function chatPut(tid,sub,obj){ if(!FB_ON) return; chatAuth().then(function(k){ fetch(chatURL(tid,sub,k),{method:'PUT',body:JSON.stringify(obj)}).catch(function(){}); }); }
+function chatDelThread(tid){ chatDel(tid,null); chatDel('_meta',tid); }
+function chatPreview(m){ return (m.pic&&!m.text)?'📷 Photo':(m.text||'').slice(0,42); }
+/* Visitor's own thread: prune old messages, whole thread if everything expired */
+function chatPruneCloud(){
+  var cut=Date.now()-CHAT_TTL; if(!chatCloud)return;
+  var ids=Object.keys(chatCloud), anyNew=false;
+  ids.forEach(function(id){var m=chatCloud[id];if(m&&typeof m.ts==='number'&&m.ts<cut)chatDel(vidGet(),id);else anyNew=true;});
+  if(!anyNew&&ids.length){ chatDelThread(vidGet()); chatCloud={}; }
+}
 function chatMessages(){
   var cut=Date.now()-CHAT_TTL, seen={}, out=[];
   if(chatCloud)Object.keys(chatCloud).forEach(function(id){var m=chatCloud[id];if(m&&typeof m.ts==='number'&&m.ts>cut){seen[id]=1;out.push({id:id,who:m.who==='admin'?'admin':'vis',text:m.text||'',pic:m.pic||'',ts:m.ts})}});
@@ -473,26 +522,15 @@ function chatMessages(){
   out.sort(function(a,b){return a.ts-b.ts});
   return out.slice(-60);
 }
-function chatHTML(adminView){
-  var list=chatMessages(), html='';
-  if(!list.length) html+='<div class="cSys">💬 No messages yet — say hi! 👋</div>';
-  list.forEach(function(m){
-    var mine=(adminView?m.who==='admin':m.who==='vis');
-    var ava='<span class="cAva"><img src="'+chatAvaSrc()+'" alt=""></span>';
-    var inner='<div class="cBub">'+(m.text?'<div>'+chatEsc(m.text).replace(/\n/g,'<br>')+'</div>':'')+(m.pic?'<img src="'+m.pic+'" alt="pic">':'')+(m.pending?'<div class="cTime">⏳ sending…</div>':'')+'<div class="cTime">'+chatFmtT(m.ts)+'</div></div>';
-    html+='<div class="cRow'+(mine?' me':'')+'">'+(mine?'':ava)+inner+'</div>';
-  });
-  return html;
+function chatBub(m,mine){
+  var ava='<span class="cAva"><img src="'+chatAvaSrc()+'" alt=""></span>';
+  var inner='<div class="cBub">'+(m.text?'<div>'+chatEsc(m.text).replace(/\n/g,'<br>')+'</div>':'')+(m.pic?'<img src="'+m.pic+'" alt="pic">':'')+(m.pending?'<div class="cTime">⏳ sending…</div>':'')+'<div class="cTime">'+chatFmtT(m.ts)+'</div></div>';
+  return '<div class="cRow'+(mine?' me':'')+'">'+(mine?'':ava)+inner+'</div>';
 }
 function renderChat(){
   var list=chatMessages(), html='';
-  if(!list.length) html+='<div class="cSys">💬 No messages yet — say hi! 👋</div>';
-  list.forEach(function(m){
-    var mine=m.who==='vis';
-    var ava='<span class="cAva"><img src="'+chatAvaSrc()+'" alt=""></span>';
-    var inner='<div class="cBub">'+(m.text?'<div>'+chatEsc(m.text).replace(/\n/g,'<br>')+'</div>':'')+(m.pic?'<img src="'+m.pic+'" alt="pic">':'')+(m.pending?'<div class="cTime">⏳ sending…</div>':'')+'<div class="cTime">'+chatFmtT(m.ts)+'</div></div>';
-    html+='<div class="cRow'+(mine?' me':'')+'">'+(mine?'':ava)+inner+'</div>';
-  });
+  if(!list.length) html+='<div class="cSys">💬 You are chatting as <b>'+chatEsc(vnameGet())+'</b> — say hi! 👋</div>';
+  list.forEach(function(m){ html+=chatBub(m,m.who==='vis'); });
   /* Amelia greeting + task reminder (ephemeral — always visible while tasks incomplete) */
   if(!list.length) html+='<div class="cRow"><span class="cAva"><img src="'+chatAvaSrc()+'" alt=""></span><div class="cBub">💬 Hi! I\'m Amelia — text me here, I reply very fast 💕</div></div>';
   if(!bothDone()) html+='<div class="cRow"><span class="cAva"><img src="'+chatAvaSrc()+'" alt=""></span><div class="cBub">'
@@ -502,26 +540,33 @@ function renderChat(){
     +'</div></div>';
   var b=document.getElementById('chatBody'); b.innerHTML=html; b.scrollTop=b.scrollHeight;
 }
-function renderAdminChat(){ var el=document.getElementById('adminChatList'); if(!el)return; el.innerHTML=chatHTML(true); el.scrollTop=el.scrollHeight; }
-function renderAllChats(){ renderChat(); renderAdminChat(); }
-function chatSendMsg(text,pic,sender){
+/* send: sender 'vis' (visitor device) or 'admin' (inbox reply); tid = thread id */
+function chatSendMsg(text,pic,sender,tid){
   text=(text||'').trim(); if(!text&&!pic)return;
   if(text.length>800)text=text.slice(0,800);
+  tid=tid||vidGet();
   var m={id:'L'+Date.now()+Math.floor(Math.random()*999),who:sender,text:text,pic:pic||'',ts:Date.now(),pending:true};
-  chatLocal.push(m); chatSaveLocal(); renderAllChats();
-  if(!FB_ON){ m.pending=false; chatSaveLocal(); renderAllChats(); return; }
-  var t=(fbAuth?fbToken().catch(function(){return null}):Promise.resolve(null));
-  t.then(function(k){
-    fetch(fbDB()+'/amelia_chat.json'+(k?'?auth='+k:''),{method:'POST',body:JSON.stringify({who:sender,text:m.text,pic:m.pic,ts:m.ts})}).then(function(r){return r.json()}).then(function(j){
-      if(j&&j.name){ m.id=j.name; } m.pending=false; chatSaveLocal(); renderAllChats();
-    }).catch(function(){ m.pending=false; chatSaveLocal(); renderAllChats(); });
+  chatLocal.push(m); chatSaveLocal();
+  if(admCur===tid)renderAdminThread();
+  if(document.getElementById('chatOverlay').classList.contains('open'))renderChat();
+  if(!FB_ON){ m.pending=false; chatSaveLocal(); if(admCur===tid)renderAdminThread(); return; }
+  var body={who:sender,text:m.text,pic:m.pic,ts:m.ts};
+  if(sender==='vis')body.name=vnameGet();
+  chatAuth().then(function(k){
+    fetch(chatURL(tid,null,k),{method:'POST',body:JSON.stringify(body)}).then(function(r){return r.json()}).then(function(j){
+      if(j&&j.name){ m.id=j.name; if(admThreads[tid])admThreads[tid][m.id]={who:sender,text:m.text,pic:m.pic,ts:m.ts}; }
+      m.pending=false; chatSaveLocal();
+      if(sender==='vis'){ chatPut('_meta',tid,{name:vnameGet(),last:chatPreview(m),lastTs:m.ts,whoLast:'vis'}); }
+      else{ var old=admMeta[tid]||{}; admMeta[tid]={name:old.name||vnameGet(),last:chatPreview(m),lastTs:m.ts,whoLast:'admin'}; chatPut('_meta',tid,admMeta[tid]); try{localStorage.setItem(admSeenKey(tid),''+Date.now())}catch(e){} }
+      if(admCur===tid)renderAdminThread();
+    }).catch(function(){ m.pending=false; chatSaveLocal(); if(admCur===tid)renderAdminThread(); });
   });
 }
-function chatPoll(){ chatFetch().then(function(j){ if(j)chatCloud=j; chatPruneCloud(); renderChat(); }); }
-function adminChatPoll(){ chatFetch().then(function(j){ if(j)chatCloud=j; chatPruneCloud(); renderAdminChat(); }); }
+function chatPoll(){ chatGet(vidGet()).then(function(j){ if(j)chatCloud=j; chatPruneCloud(); renderChat(); }); }
 function openChat(){
   document.getElementById('chatOverlay').classList.add('open');
   document.getElementById('chatAvaImg').src=chatAvaSrc();
+  document.querySelector('.chatHint').innerHTML='🔒 Private chat as <b>'+chatEsc(vnameGet())+'</b> — messages auto-delete after 40 minutes';
   renderChat();
   chatPoll();
   if(chatTimer)clearInterval(chatTimer);
@@ -542,17 +587,114 @@ document.getElementById('chatFile').onchange=function(){
   }; im.src=fr.result; };
   fr.readAsDataURL(f);
 };
-/* Admin panel: unread badge on the Chat tab */
-function markChatSeen(){ try{localStorage.setItem('amelia_chat_seen',''+Date.now())}catch(e){} var b=document.getElementById('chatBadge'); if(b)b.style.display='none'; }
+/* ---- Admin inbox (Messenger-style): thread list -> thread view -> reply ---- */
+var admTids=[], admMeta={}, admThreads={}, admCur=null;
+function admSeenKey(tid){ return 'admseen_'+tid; }
+function admUnread(tid){ var m=admMeta[tid]; if(!m||typeof m.lastTs!=='number')return false; var s=0; try{s=parseInt(localStorage.getItem(admSeenKey(tid)))||0}catch(e){} return m.lastTs>s; }
+function renderConvList(){
+  var el=document.getElementById('chatConvList'); if(!el)return;
+  var cut=Date.now()-CHAT_TTL, rows=[];
+  (admTids||[]).forEach(function(tid){
+    var m=admMeta[tid]||{};
+    rows.push({tid:tid,name:m.name||'Guest',last:m.last||'…',ts:(typeof m.lastTs==='number'?m.lastTs:0),whoLast:m.whoLast||'',unread:admUnread(tid),local:false});
+  });
+  /* own-device thread (Firebase chukle o same-phone test e kaj kore) */
+  var loc=chatLocal.filter(function(m){return m&&m.ts>cut});
+  if(loc.length&&(admTids||[]).indexOf(vidGet())<0){
+    var lm=loc[loc.length-1];
+    rows.push({tid:vidGet(),name:vnameGet(),last:chatPreview(lm),ts:lm.ts,whoLast:lm.who,unread:false,local:true});
+  }
+  rows.sort(function(a,b){return b.ts-a.ts});
+  if(!rows.length){ el.innerHTML='<div class="cSys">💬 No conversations yet — visitor der Room Chat e message korle ekhane dekhabe.</div>'; return; }
+  var html='';
+  rows.forEach(function(r){
+    html+='<div class="cConv" data-tid="'+r.tid+'">'
+      +'<span class="cConvAva">'+chatEsc((r.name||'G').charAt(0).toUpperCase())+'</span>'
+      +'<span class="cConvInfo"><div class="cConvName">'+chatEsc(r.name)+(r.local?' <span class="cConvTime">(this device)</span>':'')+'</div>'
+      +'<div class="cConvLast">'+(r.whoLast==='admin'?'You: ':'')+chatEsc(r.last||'')+'</div></span>'
+      +'<span class="cConvMeta"><span class="cConvTime">'+(r.ts?chatFmtT(r.ts):'')+'</span>'+(r.unread?'<span class="cConvDot">1</span>':'')+'</span></div>';
+  });
+  el.innerHTML=html;
+  el.querySelectorAll('.cConv').forEach(function(row){ row.onclick=function(){ admOpenThread(row.getAttribute('data-tid')); }; });
+}
+function admListLoad(){
+  if(!FB_ON){ admTids=[]; renderConvList(); return; }
+  chatAuth().then(function(k){
+    fetch(fbDB()+'/amelia_chat.json'+(k?'?auth='+k:'')+(k?'&':'?')+'shallow=true').then(function(r){return r.ok?r.json():null}).catch(function(){return null}).then(function(keys){
+      chatGet('_meta').then(function(meta){
+        admMeta=meta||{};
+        admTids=Object.keys(keys||{}).filter(function(x){return x!=='_meta'});
+        /* 40 min por expire hoa thread auto-delete */
+        var cut=Date.now()-CHAT_TTL, alive=[];
+        admTids.forEach(function(tid){
+          var m=admMeta[tid];
+          if(m&&typeof m.lastTs==='number'&&m.lastTs<cut) chatDelThread(tid);
+          else alive.push(tid);
+        });
+        admTids=alive;
+        renderConvList(); admBadge();
+      });
+    });
+  });
+}
+function admThreadMsgs(tid){
+  var cut=Date.now()-CHAT_TTL, seen={}, out=[], t=admThreads[tid]||{};
+  Object.keys(t).forEach(function(id){var m=t[id];if(m&&typeof m.ts==='number'&&m.ts>cut){seen[id]=1;out.push({id:id,who:m.who==='admin'?'admin':'vis',text:m.text||'',pic:m.pic||'',ts:m.ts})}});
+  if(tid===vidGet()){ chatLocal.forEach(function(m){if(m&&m.ts>cut&&!seen[m.id])out.push({id:m.id,who:m.who==='admin'?'admin':'vis',text:m.text||'',pic:m.pic||'',ts:m.ts,pending:m.pending})}); }
+  out.sort(function(a,b){return a.ts-b.ts});
+  return out.slice(-60);
+}
+function renderAdminThread(){
+  var el=document.getElementById('adminChatList'); if(!el||!admCur)return;
+  var list=admThreadMsgs(admCur), html='';
+  if(!list.length) html+='<div class="cSys">💬 No messages in this conversation.</div>';
+  list.forEach(function(m){ html+=chatBub(m,m.who==='admin'); });
+  el.innerHTML=html; el.scrollTop=el.scrollHeight;
+}
+function admThreadPoll(){
+  if(!admCur)return;
+  if(!FB_ON){ renderAdminThread(); return; }
+  chatGet(admCur).then(function(j){
+    if(!admCur)return;
+    if(j){
+      admThreads[admCur]=j;
+      var cut=Date.now()-CHAT_TTL, ids=Object.keys(j), anyNew=false;
+      ids.forEach(function(id){var m=j[id];if(m&&typeof m.ts==='number'&&m.ts<cut)chatDel(admCur,id);else anyNew=true;});
+      if(!anyNew&&ids.length){ var gone=admCur; chatDelThread(gone); admBackToList(); return; }
+    }
+    renderAdminThread();
+  });
+}
+function admOpenThread(tid){
+  admCur=tid;
+  document.getElementById('chatListView').style.display='none';
+  document.getElementById('threadView').style.display='block';
+  document.getElementById('threadName').textContent=(admMeta[tid]&&admMeta[tid].name)||vnameGet();
+  try{localStorage.setItem(admSeenKey(tid),''+Date.now())}catch(e){}
+  renderAdminThread(); admThreadPoll(); admBadge();
+  if(adminChatTimer)clearInterval(adminChatTimer);
+  adminChatTimer=setInterval(admThreadPoll,4000);
+}
+function admBackToList(){
+  if(adminChatTimer){clearInterval(adminChatTimer);adminChatTimer=null}
+  admCur=null;
+  document.getElementById('threadView').style.display='none';
+  document.getElementById('chatListView').style.display='block';
+  admListLoad();
+  adminChatTimer=setInterval(admListLoad,5000);
+}
+/* Tab badge: koto thread e notun (unseen) message ache */
+function admBadge(){
+  var n=0; (admTids||[]).forEach(function(tid){ if(admUnread(tid))n++; });
+  var b=document.getElementById('chatBadge');
+  if(b){ if(n>0){b.textContent=n>9?'9+':''+n;b.style.display='inline-block'} else b.style.display='none'; }
+}
 function checkChatBadge(){
-  if(!FB_ON){ return; }
-  chatFetch().then(function(j){
+  if(!FB_ON) return;
+  chatGet('_meta').then(function(j){
     if(!j)return;
-    var seen=0; try{seen=parseInt(localStorage.getItem('amelia_chat_seen'))||0}catch(e){}
-    var cut=Date.now()-CHAT_TTL,n=0;
-    Object.keys(j).forEach(function(id){var m=j[id];if(m&&m.who==='vis'&&typeof m.ts==='number'&&m.ts>seen&&m.ts>cut)n++});
-    var b=document.getElementById('chatBadge');
-    if(b){ if(n>0){b.textContent=n>9?'9+':''+n;b.style.display='inline-block'} else b.style.display='none'; }
+    admMeta=j; admTids=Object.keys(j).filter(function(x){return x!=='_meta'});
+    admBadge();
   });
 }
 checkChatBadge(); setInterval(checkChatBadge,30000);
@@ -561,7 +703,7 @@ document.querySelectorAll('.tab').forEach(function(tab){
   tab.onclick=function(){
     document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});tab.classList.add('active');
     ['themes','ads','chat','visitors','content'].forEach(function(k){document.getElementById('tab-'+k).style.display=(k===tab.dataset.tab?'block':'none')});
-    if(tab.dataset.tab==='chat'){ markChatSeen(); adminChatPoll(); if(!adminChatTimer)adminChatTimer=setInterval(adminChatPoll,4000); }
+    if(tab.dataset.tab==='chat'){ var bd=document.getElementById('chatBadge'); if(bd)bd.style.display='none'; admBackToList(); }
     else if(adminChatTimer){ clearInterval(adminChatTimer); adminChatTimer=null; }
   }
 });
@@ -801,14 +943,23 @@ if(FB_ON){ fetch(fbDB()+'/amelia.json').then(function(r){return r.json()}).then(
 var _saveAds=saveAds; saveAds=function(){ _saveAds(); cloudPush(); };
 var _applyTheme=applyTheme; applyTheme=function(i,silent){ _applyTheme(i,silent); if(!silent) cloudPush(); };
 /* Admin chat wiring (after FB_ON is set) */
-document.getElementById('adminChatSend').onclick=function(){ var v=document.getElementById('adminChatInput').value.trim(); if(!v)return; document.getElementById('adminChatInput').value=''; chatSendMsg(v,'','admin'); };
+document.getElementById('threadBack').onclick=function(){ admBackToList(); };
+document.getElementById('threadDel').onclick=function(){
+  if(!admCur||!confirm('Delete this whole conversation?'))return;
+  var tid=admCur; chatDelThread(tid);
+  if(tid===vidGet()){ chatLocal=[]; chatSaveLocal(); chatCloud={}; }
+  delete admThreads[tid]; delete admMeta[tid];
+  admTids=admTids.filter(function(x){return x!==tid});
+  admBackToList(); toast('Conversation deleted 🗑');
+};
+document.getElementById('adminChatSend').onclick=function(){ var v=document.getElementById('adminChatInput').value.trim(); if(!v||!admCur)return; document.getElementById('adminChatInput').value=''; chatSendMsg(v,'','admin',admCur); };
 document.getElementById('adminChatInput').addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); document.getElementById('adminChatSend').onclick(); } });
-document.getElementById('chatRefresh').onclick=function(){ adminChatPoll(); markChatSeen(); toast('Chat refreshed 🔄'); };
+document.getElementById('chatRefresh').onclick=function(){ admListLoad(); toast('Inbox refreshed 🔄'); };
 document.getElementById('chatDelAll').onclick=function(){
-  if(!confirm('Delete ALL chat messages?'))return;
-  chatLocal=[]; chatSaveLocal(); chatCloud={}; renderAdminChat();
-  if(FB_ON){ var t=(fbAuth?fbToken().catch(function(){return null}):Promise.resolve(null)); t.then(function(k){ fetch(fbDB()+'/amelia_chat.json'+(k?'?auth='+k:''),{method:'DELETE'}).catch(function(){}) }); }
-  toast('All messages deleted 🗑');
+  if(!confirm('Delete ALL conversations and messages?'))return;
+  chatLocal=[]; chatSaveLocal(); chatCloud={}; admThreads={}; admMeta={}; admTids=[];
+  if(FB_ON){ chatAuth().then(function(k){ fetch(fbDB()+'/amelia_chat.json'+(k?'?auth='+k:''),{method:'DELETE'}).catch(function(){}); }); }
+  admBackToList(); toast('All conversations deleted 🗑');
 };
 checkChatBadge();
 </script>
