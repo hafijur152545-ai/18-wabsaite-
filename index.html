@@ -197,21 +197,22 @@ document.getElementById('refreshVis').onclick=function(){updateVisitors();toast(
 // Ads
 var adsDefault=[
  {on:true,type:'Direct Link',name:'New Ad',code:'https://tinyurl.com/5jtbty5e',note:'This link will be used in Unlock Task (will not show separately on site)'},
- {on:true,type:'Popunder',name:'Popunder',code:'<script data-cfasync="false" src="https://aarems.org/1/fcba48f61b32153341476f71bdd01332"></script>',note:'Sticky (floats on screen, refreshes)'}
+ {on:true,type:'Popunder',name:'Popunder',code:'https://aarems.org/1/fcba48f61b32153341476f71bdd01332',note:'Sticky (floats on screen, refreshes) - paste full script code here'}
 ];
 var ads=[];
-try{ads=JSON.parse(localStorage.getItem('amelia_ads')||'null')||adsDefault}catch(e){ads=adsDefault}
+try{ads=JSON.parse(localStorage.getItem('amelia_ads')||'null')||adsDefault; ads=ads.map(function(a){ if(a.code && a.code.indexOf('<script')!==-1){ a.code=a.code.replace(/<[^>]*>/g,'').trim(); } return a; });}catch(e){ads=adsDefault}
 function saveAds(){try{localStorage.setItem('amelia_ads',JSON.stringify(ads))}catch(e){}}
 function renderAds(){
   var wrap=document.getElementById('adsList');wrap.innerHTML='';
   ads.forEach(function(ad,idx){
     var card=document.createElement('div');card.className='adCard';
-    card.innerHTML='<div class="adHead"><b>'+(idx+1)+'. '+ad.name+'</b><label class="switch"><input type="checkbox" '+(ad.on?'checked':'')+'><span class="slider"></span></label></div>'
+    card.innerHTML='<div class="adHead"><b>'+(idx+1)+'. '+ad.name.replace(/</g,'&lt;')+'</b><label class="switch"><input type="checkbox" '+(ad.on?'checked':'')+'><span class="slider"></span></label></div>'
       +'<select><option '+(ad.type==='Direct Link'?'selected':'')+'>Direct Link</option><option '+(ad.type==='Popunder'?'selected':'')+'>Popunder</option><option '+(ad.type==='Banner'?'selected':'')+'>Banner</option><option '+(ad.type==='Sticky'?'selected':'')+'>Sticky</option></select>'
       +'<input type="text" placeholder="Ad Name" value="'+ad.name.replace(/"/g,'')+'">'
-      +'<textarea placeholder="Ad Link / Code">'+ad.code+'</textarea>'
+      +'<textarea placeholder="Ad Link / Code"></textarea>'
       +'<div class="adNote">🔒 '+(ad.note||'This link will be used in Unlock Task')+'</div>'
       +'<button class="delBtn">✕ Delete This</button>';
+    card.querySelector('textarea').value = ad.code;
     var inputs=card.querySelectorAll('select,input[type=text],textarea');
     card.querySelector('input[type=checkbox]').onchange=function(){ad.on=this.checked;saveAds()};
     inputs[0].onchange=function(){ad.type=this.value;saveAds()};
