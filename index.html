@@ -6,186 +6,244 @@
 <meta name="theme-color" content="#0e0b1f">
 <title>Amelia – Official Page (18+)</title>
 <style>
-:root{--bg:#0e0b1f;--card:#17142e;--text:#f4f1ff;--mute:#a59fc8;--pink:#ff3d7f;--violet:#7c4dff;--line:#2a2548;--b1a:#ff3d7f;--b1b:#ff5c5c;--b2a:#a24dff;--b2b:#5b4bf0;--b3a:#12b886;--b3b:#0a9f8f;--glow:rgba(124,77,255,.35)}
+:root{--bg:#0e0b1f;--card:#17142e;--text:#f4f1ff;--mute:#a59fc8;--pink:#ff3d7f;--violet:#7c4dff;--line:#2a2548;--b1a:#ff3d7f;--b1b:#ff5c5c;--b2a:#a24dff;--b2b:#5b4bf0;--b3a:#12b886;--b3b:#0a9f8f}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(120% 60% at 50% 0,#2a1658 0,var(--bg) 60%) no-repeat,var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;display:flex;justify-content:center;transition:background .3s}
+body{margin:0;background:radial-gradient(120% 60% at 50% 0,#2a1658 0,var(--bg) 60%) no-repeat,var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;display:flex;justify-content:center}
 main{width:100%;max-width:440px;padding:78px 18px 40px;text-align:center}
-.avatar{width:128px;height:128px;margin:0 auto 14px;border-radius:50%;padding:4px;background:linear-gradient(135deg,var(--pink),var(--violet));box-shadow:0 10px 30px var(--glow)}
-.avatar div{width:100%;height:100%;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:44px;font-weight:700;overflow:hidden}
+.avatar{width:128px;height:128px;margin:0 auto 14px;border-radius:50%;padding:4px;background:linear-gradient(135deg,var(--pink),var(--violet))}
+.avatar div{width:100%;height:100%;border-radius:50%;background:var(--card);display:grid;place-items:center;overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:cover}
-h1{margin:0;font-size:30px}
-.sub{color:var(--mute);margin:6px 0 18px;font-size:15px}
+h1{margin:0;font-size:30px}.sub{color:var(--mute);margin:6px 0 18px;font-size:15px}
 .bio{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-size:15px;line-height:1.5;margin-bottom:18px}
-.btn{display:flex;align-items:center;gap:14px;text-decoration:none;color:#fff;border-radius:18px;padding:16px;margin-bottom:12px;text-align:left;transition:transform .15s}
+.btn{display:flex;align-items:center;gap:14px;text-decoration:none;color:#fff;border-radius:18px;padding:16px;margin-bottom:12px;text-align:left}
 .btn:active{transform:scale(.98)}
 .ic{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:22px;flex:none}
-.btn b{display:block;font-size:17px}
-.btn small{opacity:.85;font-size:13px}
-.go{margin-left:auto;font-size:20px}
-.b1{background:linear-gradient(100deg,var(--b1a),var(--b1b))}
-.b2{background:linear-gradient(100deg,var(--b2a),var(--b2b))}
-.b3{background:linear-gradient(100deg,var(--b3a),var(--b3b))}
+.btn b{display:block;font-size:17px}.btn small{opacity:.85;font-size:13px}.go{margin-left:auto;font-size:20px}
+.b1{background:linear-gradient(100deg,var(--b1a),var(--b1b))}.b2{background:linear-gradient(100deg,var(--b2a),var(--b2b))}.b3{background:linear-gradient(100deg,var(--b3a),var(--b3b))}
 .trust{display:flex;justify-content:space-around;margin-top:22px;color:var(--mute);font-size:12.5px}
-.trust div{cursor:pointer;padding:6px 8px;border-radius:10px;user-select:none;-webkit-tap-highlight-color:transparent}
-.trust span{display:block;font-size:20px;margin-bottom:4px}
+.trust div{cursor:pointer;padding:6px 8px;border-radius:10px;user-select:none}.trust span{display:block;font-size:20px;margin-bottom:4px}
 footer{margin-top:22px;color:var(--mute);font-size:12px}
 .visit-box{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;font-size:14px;color:var(--mute)}
 .visit-box b{color:var(--text);font-size:20px;display:block}
-/* ADMIN */
-#adminOverlay{position:fixed;inset:0;z-index:99;display:none;background:rgba(5,3,15,.85);backdrop-filter:blur(6px);overflow-y:auto;padding:18px 14px 30px}
-#adminOverlay.open{display:block}
-.admin{max-width:460px;margin:0 auto;background:#1b1838;border:1px solid #332a5e;border-radius:22px;padding:20px}
-.admin h2{margin:0 0 4px;font-size:22px}
-.admin p{margin:0 0 16px;color:#a59fc8;font-size:13.5px;line-height:1.5}
-.closeBtn{float:right;background:#2a2548;border:0;color:#fff;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer}
-.statGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.stat{background:#12102a;border:1px solid #2a2548;border-radius:14px;padding:12px;text-align:center}
-.stat b{font-size:22px;display:block}
-.stat small{color:#a59fc8}
-.sectionTitle{font-weight:700;margin:18px 0 10px;text-align:left;font-size:16px}
-.themeGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.themeBtn{border:2px solid transparent;border-radius:14px;padding:10px;cursor:pointer;color:#fff;text-align:left;font-family:inherit}
-.themeBtn.active{border-color:#fff;outline:2px solid #fff;outline-offset:2px}
-.themeBtn b{display:block;font-size:14px}
-.themeBtn small{opacity:.85;font-size:12px}
-.themeBtn .dots{display:flex;gap:5px;margin-top:8px}
-.themeBtn .dots i{width:18px;height:18px;border-radius:50%;display:block;border:2px solid rgba(255,255,255,.5)}
-.adminInput{width:100%;padding:12px;border-radius:12px;border:1px solid #2a2548;background:#12102a;color:#fff;margin-bottom:10px;font:inherit;font-size:14px}
-.saveBtn{width:100%;padding:14px;border:0;border-radius:14px;background:linear-gradient(100deg,#ff3d7f,#7c4dff);color:#fff;font-weight:800;font-size:15px;cursor:pointer}
-.hint{font-size:12px;color:#a59fc8;margin-top:10px;line-height:1.5}
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#fff;color:#111;padding:10px 16px;border-radius:999px;font-size:13px;font-weight:700;display:none;z-index:120;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+/* PASSWORD + ADMIN */
+.overlay{position:fixed;inset:0;z-index:99;display:none;background:rgba(3,2,12,.92);overflow-y:auto;padding:0}
+.overlay.open{display:block}
+.passWrap{min-height:100vh;display:grid;place-items:center;padding:20px}
+.passBox{width:100%;max-width:360px;background:#1b1838;border:1px solid #332a5e;border-radius:22px;padding:26px;text-align:center}
+.passBox h2{margin:0 0 8px}.passBox p{color:#a59fc8;font-size:13.5px;line-height:1.5;margin:0 0 16px}
+.passBox input{width:100%;padding:14px;border-radius:12px;border:1px solid #2a2548;background:#12102a;color:#fff;font:inherit;margin-bottom:10px;text-align:center;font-size:16px}
+.passBtn{width:100%;padding:14px;border:0;border-radius:14px;background:linear-gradient(100deg,#ff3d7f,#7c4dff);color:#fff;font-weight:800;cursor:pointer}
+.passErr{color:#ff6b6b;font-size:13px;margin-top:10px;display:none}
+.cancelBtn{width:100%;padding:12px;border:1px solid #2a2548;background:transparent;color:#a59fc8;border-radius:12px;margin-top:10px;cursor:pointer}
+/* ADMIN HEADER like screenshot */
+.adminTop{position:sticky;top:0;z-index:5;background:#0f0d24;padding:14px 14px 10px;border-bottom:1px solid #2a2548}
+.adminHead{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.adminHead h2{margin:0;font-size:20px}
+.online{font-size:12px;color:#4ade80;background:#122a1a;border:1px solid #1e4a2a;padding:5px 10px;border-radius:999px}
+.topBtns{margin-left:auto;display:flex;gap:8px}
+.topBtns button{border:0;border-radius:10px;padding:9px 12px;cursor:pointer;font-weight:700}
+.siteBtn{background:#1e1a3d;color:#fff}.logoutBtn{background:#7f1d1d;color:#fff}
+.tabs{display:flex;gap:10px;overflow-x:auto;padding:12px 14px 4px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;border:0;background:#1e1a3d;color:#cbd5e1;padding:11px 16px;border-radius:999px;font-weight:700;cursor:pointer;white-space:nowrap}
+.tab.active{background:#ff8a00;color:#fff}
+.tabContent{padding:14px}
+.saveTop{width:calc(100% - 28px);margin:0 14px 10px;background:#ff8a00;color:#fff;border:0;padding:13px;border-radius:14px;font-weight:800;cursor:pointer;font-size:15px}
+/* THEME CARDS */
+.themeGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.themeCard{background:#1a1830;border:1px solid #2a2548;border-radius:18px;padding:12px;position:relative;overflow:hidden}
+.themeCard.active{border-color:#ff8a00;outline:2px solid #ff8a00}
+.themeNum{position:absolute;top:8px;right:10px;background:rgba(0,0,0,.55);color:#fff;font-weight:800;font-size:13px;width:26px;height:26px;display:grid;place-items:center;border-radius:50%}
+.themePreview{height:72px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
+.themePreview i{display:block;width:52px;height:16px;border-radius:999px}
+.themeCard b{display:block;font-size:16px}.themeCard small{color:#a59fc8;font-size:12.5px;display:block;margin:2px 0 10px;line-height:1.4}
+.pickBtn{background:#2a2548;color:#fff;border:0;padding:8px 12px;border-radius:999px;font-size:13px;cursor:pointer}
+.pickBtn.active{background:#ff8a00}
+/* ADS */
+.adCard{background:#1a1830;border:1px solid #2a2548;border-radius:18px;padding:16px;margin-bottom:14px}
+.adHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.adHead b{font-size:17px}
+.switch{position:relative;width:56px;height:32px;display:inline-block;flex:none}
+.switch input{display:none}.slider{position:absolute;inset:0;background:#333;border-radius:999px;transition:.2s;cursor:pointer}
+.slider:before{content:"";position:absolute;width:26px;height:26px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s}
+.switch input:checked + .slider{background:#22c55e}.switch input:checked + .slider:before{transform:translateX(24px)}
+.adCard select,.adCard input[type=text],.adCard textarea{width:100%;background:#12102a;border:1px solid #2a2548;color:#fff;border-radius:12px;padding:12px;font:inherit;font-size:14px;margin-bottom:10px}
+.adCard textarea{min-height:72px;resize:vertical}
+.adNote{font-size:12.5px;color:#a59fc8;line-height:1.5;margin:-2px 0 10px}
+.delBtn{background:#4c1d1d;color:#fca5a5;border:0;padding:8px 12px;border-radius:999px;cursor:pointer;font-weight:700}
+.addAdBtn{width:100%;background:#1e1a3d;color:#fff;border:1px dashed #4a3f7a;padding:14px;border-radius:14px;cursor:pointer;font-weight:700}
+/* VISITORS */
+.visDesc{color:#a59fc8;font-size:13.5px;line-height:1.6;margin:0 0 16px}
+.visGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.visBox{background:#1a1830;border:1px solid #2a2548;border-radius:18px;padding:16px;text-align:center}
+.visBox small{color:#a59fc8;font-size:13px}.visBox b{font-size:38px;display:block;margin-top:6px}
+.visBox b.orange{color:#ff8a00}.visBox b.green{color:#22c55e}
+.last7{background:#1a1830;border:1px solid #2a2548;border-radius:18px;padding:16px}
+.last7 h3{margin:0 0 14px}
+.row7{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #222040;font-size:14px}
+.row7:last-child{border-bottom:0}
+.refreshBtn{background:#2a2548;color:#fff;border:0;padding:11px 16px;border-radius:12px;margin-top:14px;cursor:pointer;font-weight:700}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#fff;color:#111;padding:10px 16px;border-radius:999px;font-size:13px;font-weight:700;display:none;z-index:200}
 </style>
 </head>
 <body>
 <main>
   <div class="avatar"><div><img src="profile.jpg" alt="Amelia profile photo"></div></div>
-  <h1 id="nm">Amelia</h1>
-  <p class="sub">Official Page · 18+</p>
+  <h1>Amelia</h1><p class="sub">Official Page · 18+</p>
   <div class="bio" id="bio">Welcome to my official page. Here you will find all my latest updates and links in one place.</div>
-
   <a class="btn b1" href="#" id="l1"><span class="ic">🎥</span><span><b>Watch Video Page</b><small>Go to my content platform</small></span><span class="go">›</span></a>
   <a class="btn b2" href="#" id="l2"><span class="ic">💬</span><span><b>Chat Community</b><small>Join on Telegram / Discord</small></span><span class="go">›</span></a>
   <a class="btn b3" href="#" id="l3"><span class="ic">📞</span><span><b>Contact Me</b><small>Send a message on WhatsApp</small></span><span class="go">›</span></a>
-
-  <div class="trust">
-    <div id="lockBtn" title="Admin - Tap 5 times in 10 sec"><span>🔒</span>Safe Link</div>
-    <div><span>⚡</span>No Sign-up Needed</div>
-    <div><span>🔞</span>18+ Only</div>
-  </div>
+  <div class="trust"><div id="lockBtn"><span>🔒</span>Safe Link</div><div><span>⚡</span>No Sign-up Needed</div><div><span>🔞</span>18+ Only</div></div>
   <div class="visit-box">👀 Daily Visitors<b id="dailyCount">0</b><span id="todayLabel">Today</span></div>
   <footer>© Amelia · All content is for adults and consensual</footer>
 </main>
 
-<!-- ADMIN PANEL -->
-<div id="adminOverlay">
-  <div class="admin">
-    <button class="closeBtn" id="closeAdmin">✕</button>
-    <h2>⚙️ Admin Panel</h2>
-    <p>Welcome back, Amelia. Change theme, links and check daily visits here. Only you can open this panel.</p>
+<!-- PASSWORD -->
+<div class="overlay" id="passOverlay"><div class="passWrap"><div class="passBox"><div style="font-size:38px">🔒</div><h2>Admin Password</h2><p>Enter your admin password to open the Admin Panel.</p><input type="password" id="passInput" placeholder="Enter password" autocomplete="off"><button class="passBtn" id="passGo">Unlock Admin 🔓</button><div class="passErr" id="passErr">Wrong password. Try again.</div><button class="cancelBtn" id="passCancel">Cancel</button></div></div></div>
 
-    <div class="statGrid">
-      <div class="stat"><b id="statToday">0</b><small>📅 Daily Visit</small></div>
-      <div class="stat"><b id="statTotal">0</b><small>🌍 Total Visit</small></div>
-    </div>
+<!-- ADMIN -->
+<div class="overlay" id="adminOverlay">
+  <div class="adminTop"><div class="adminHead"><span style="font-size:22px">⚙️</span><h2>Amelia Admin</h2><span class="online">☁️ Online</span><div class="topBtns"><button class="siteBtn" id="goSite">🏠 Site</button><button class="logoutBtn" id="logoutBtn">Logout</button></div></div></div>
+  <div class="tabs">
+    <button class="tab active" data-tab="themes">🎨 Themes</button>
+    <button class="tab" data-tab="ads">💰 Ads</button>
+    <button class="tab" data-tab="visitors">📊 Visitors</button>
+  </div>
+  <button class="saveTop" id="saveAllTop">💾 Save Changes</button>
 
-    <div class="sectionTitle">🎨 Choose Theme - 14 Themes</div>
-    <div class="themeGrid" id="themeGrid"></div>
+  <!-- THEMES TAB -->
+  <div class="tabContent" id="tab-themes"><div class="themeGrid" id="themeGrid"></div></div>
 
-    <div class="sectionTitle">🔗 Edit Links</div>
-    <input class="adminInput" id="inL1" placeholder="Video Page Link">
-    <input class="adminInput" id="inL2" placeholder="Chat Community Link">
-    <input class="adminInput" id="inL3" placeholder="Contact / WhatsApp Link">
-    <input class="adminInput" id="inBio" placeholder="Bio - 1-2 lines">
-    <button class="saveBtn" id="saveLinks">Save Changes ✅</button>
-    <div class="hint">Tip: Theme auto-saves in this browser. To make it permanent for everyone, tell me which theme number you like and I will set it as default.<br>Secret open: Tap 🔒 5 times within 10 seconds.</div>
+  <!-- ADS TAB -->
+  <div class="tabContent" id="tab-ads" style="display:none">
+    <div id="adsList"></div>
+    <button class="addAdBtn" id="addAdBtn">+ Add New Ad</button>
+  </div>
+
+  <!-- VISITORS TAB -->
+  <div class="tabContent" id="tab-visitors" style="display:none">
+    <p class="visDesc">Every day at 6:00 AM the count resets and starts fresh. Unique Visit = same device counted once in the set hours. Ads View = how many times Ads were shown to visitors. Your own phone is not counted.</p>
+    <div class="visGrid"><div class="visBox"><small>Today's Unique Visit</small><b class="orange" id="statToday">0</b></div><div class="visBox"><small>Today's Ads View</small><b class="green" id="statAdsToday">0</b></div></div>
+    <div class="last7"><h3>Last 7 Days</h3><div id="last7List"></div></div>
+    <button class="refreshBtn" id="refreshVis">🔄 Refresh</button>
   </div>
 </div>
-<div class="toast" id="toast">Theme Changed ✨</div>
-
+<div class="toast" id="toast"></div>
 <script>
-var CFG={name:'Amelia',bio:'Welcome to my official page. Here you will find all my latest updates and links in one place.',l1:'#',l2:'#',l3:'#'};
+var PASSWORD='noyon@18';
 var THEMES=[
- {name:'1. Royal Purple',bg:'#0e0b1f',card:'#17142e',text:'#f4f1ff',mute:'#a59fc8',pink:'#ff3d7f',violet:'#7c4dff',b1:['#ff3d7f','#ff5c5c'],b2:['#a24dff','#5b4bf0'],b3:['#12b886','#0a9f8f']},
- {name:'2. Midnight Blue',bg:'#050a1f',card:'#101a3a',text:'#eaf0ff',mute:'#8fa3d0',pink:'#3b82f6',violet:'#06b6d4',b1:['#2563eb','#06b6d4'],b2:['#7c3aed','#db2777'],b3:['#059669','#10b981']},
- {name:'3. Rose Pink',bg:'#1f0a16',card:'#2e1220',text:'#fff1f5',mute:'#e5a8c0',pink:'#ff2e7e',violet:'#ff7eb6',b1:['#ff2e7e','#ff8a5c'],b2:['#ec4899','#f472b6'],b3:['#f43f5e','#fb7185']},
- {name:'4. Emerald Green',bg:'#04150f',card:'#0d2a1e',text:'#ecfdf5',mute:'#8fc9ae',pink:'#10b981',violet:'#34d399',b1:['#059669','#34d399'],b2:['#0d9488','#2dd4bf'],b3:['#16a34a','#4ade80']},
- {name:'5. Sunset Orange',bg:'#1a0b02',card:'#2b1405',text:'#fff7ed',mute:'#e8b795',pink:'#f97316',violet:'#ef4444',b1:['#f97316','#ef4444'],b2:['#ea580c','#f59e0b'],b3:['#dc2626','#fb7185']},
- {name:'6. Ocean Teal',bg:'#02181c',card:'#0a2e33',text:'#ecfeff',mute:'#8fc7cd',pink:'#06b6d4',violet:'#0ea5e9',b1:['#06b6d4','#0ea5e9'],b2:['#0891b2','#22d3ee'],b3:['#0d9488','#14b8a6']},
- {name:'7. Golden Luxury',bg:'#120d00',card:'#241a05',text:'#fefce8',mute:'#d6c48a',pink:'#f59e0b',violet:'#eab308',b1:['#f59e0b','#eab308'],b2:['#b45309','#facc15'],b3:['#a16207','#ca8a04']},
- {name:'8. Cherry Red',bg:'#170404',card:'#2a0a0a',text:'#fef2f2',mute:'#e5a0a0',pink:'#ef4444',violet:'#dc2626',b1:['#ef4444','#dc2626'],b2:['#b91c1c','#f87171'],b3:['#991b1b','#ef4444']},
- {name:'9. Lavender Dream',bg:'#150e22',card:'#241a38',text:'#f5f3ff',mute:'#c4b5fd',pink:'#a78bfa',violet:'#c084fc',b1:['#a78bfa','#c084fc'],b2:['#8b5cf6','#d8b4fe'],b3:['#7c3aed','#a78bfa']},
- {name:'10. Neon Cyber',bg:'#02010a',card:'#0a0a1f',text:'#e0f2fe',mute:'#7dd3fc',pink:'#22d3ee',violet:'#e879f9',b1:['#22d3ee','#e879f9'],b2:['#a855f7','#ec4899'],b3:['#22c55e','#84cc16']},
- {name:'11. Coffee Brown',bg:'#120a04',card:'#241708',text:'#fef3c7',mute:'#d6b48a',pink:'#a16207',violet:'#92400e',b1:['#a16207','#92400e'],b2:['#78350f','#b45309'],b3:['#44403c','#78716c']},
- {name:'12. Ice White',bg:'#f1f5f9',card:'#ffffff',text:'#0f172a',mute:'#64748b',pink:'#0ea5e9',violet:'#6366f1',b1:['#0ea5e9','#6366f1'],b2:['#8b5cf6','#ec4899'],b3:['#10b981','#059669']},
- {name:'13. Barbie Pink',bg:'#1e0714',card:'#331026',text:'#fdf2f8',mute:'#f0a6d1',pink:'#ff4fc3',violet:'#ff8ae2',b1:['#ff4fc3','#ff8ae2'],b2:['#e879f9','#f472b6'],b3:['#fb7185','#fda4af']},
- {name:'14. Dark Monster',bg:'#000000',card:'#111111',text:'#ffffff',mute:'#a3a3a3',pink:'#22ff88',violet:'#00ffcc',b1:['#22ff88','#00ffcc'],b2:['#a3e635','#22c55e'],b3:['#facc15','#f97316']},
+ {name:'Sun9 Orange',desc:'Classic Grid',bg:'#0e0b1f',card:'#17142e',text:'#f4f1ff',mute:'#a59fc8',pink:'#ff3d7f',violet:'#7c4dff',b1:['#ff3d7f','#ff5c5c'],b2:['#a24dff','#5b4bf0'],b3:['#12b886','#0a9f8f'],prev:'#0e0b1f'},
+ {name:'Netflix Red',desc:'Red with big hero',bg:'#0a0a0a',card:'#1a1a1a',text:'#ffffff',mute:'#b3b3b3',pink:'#e50914',violet:'#b00610',b1:['#e50914','#f6121d'],b2:['#b00610','#e50914'],b3:['#221f1f','#565656'],prev:'#0a0a0a'},
+ {name:'Neon Cyber',desc:'Neon glow, sharp corners',bg:'#02010a',card:'#0a0a1f',text:'#e0f2fe',mute:'#7dd3fc',pink:'#22d3ee',violet:'#e879f9',b1:['#22d3ee','#e879f9'],b2:['#a855f7','#ec4899'],b3:['#22c55e','#84cc16'],prev:'#02010a'},
+ {name:'Glass Premium',desc:'Glass blur, round',bg:'#150e22',card:'#241a38',text:'#f5f3ff',mute:'#c4b5fd',pink:'#a78bfa',violet:'#c084fc',b1:['#a78bfa','#c084fc'],b2:['#8b5cf6','#d8b4fe'],b3:['#7c3aed','#a78bfa'],prev:'#4c1d95'},
+ {name:'Golden Cinema',desc:'Poster style, golden',bg:'#120d00',card:'#241a05',text:'#fefce8',mute:'#d6c48a',pink:'#f59e0b',violet:'#eab308',b1:['#f59e0b','#eab308'],b2:['#b45309','#facc15'],b3:['#a16207','#ca8a04'],prev:'#000000'},
+ {name:'Clean Light',desc:'White background, neat layout',bg:'#f1f5f9',card:'#ffffff',text:'#0f172a',mute:'#64748b',pink:'#0ea5e9',violet:'#6366f1',b1:['#0ea5e9','#6366f1'],b2:['#8b5cf6','#ec4899'],b3:['#10b981','#059669'],prev:'#ffffff'},
+ {name:'Sunset Aurora',desc:'Warm gradient, glass card',bg:'#1f0a16',card:'#2e1220',text:'#fff1f5',mute:'#e5a8c0',pink:'#ff2e7e',violet:'#ff7eb6',b1:['#ff2e7e','#ff8a5c'],b2:['#ec4899','#f472b6'],b3:['#f43f5e','#fb7185'],prev:'#831843'},
+ {name:'Emerald Night',desc:'Green glow, big card',bg:'#04150f',card:'#0d2a1e',text:'#ecfdf5',mute:'#8fc9ae',pink:'#10b981',violet:'#34d399',b1:['#059669','#34d399'],b2:['#0d9488','#2dd4bf'],b3:['#16a34a','#4ade80'],prev:'#022c22'},
+ {name:'Royal Purple',desc:'Royal premium',bg:'#0e0b1f',card:'#17142e',text:'#f4f1ff',mute:'#a59fc8',pink:'#ff3d7f',violet:'#7c4dff',b1:['#ff3d7f','#ff5c5c'],b2:['#a24dff','#5b4bf0'],b3:['#12b886','#0a9f8f'],prev:'#2a1658'},
+ {name:'Midnight Blue',desc:'Deep blue pro',bg:'#050a1f',card:'#101a3a',text:'#eaf0ff',mute:'#8fa3d0',pink:'#3b82f6',violet:'#06b6d4',b1:['#2563eb','#06b6d4'],b2:['#7c3aed','#db2777'],b3:['#059669','#10b981'],prev:'#050a1f'},
+ {name:'Rose Pink',desc:'Soft pink love',bg:'#1f0a16',card:'#2e1220',text:'#fff1f5',mute:'#e5a8c0',pink:'#ff2e7e',violet:'#ff7eb6',b1:['#ff2e7e','#ff8a5c'],b2:['#ec4899','#f472b6'],b3:['#f43f5e','#fb7185'],prev:'#1f0a16'},
+ {name:'Ocean Teal',desc:'Cool ocean',bg:'#02181c',card:'#0a2e33',text:'#ecfeff',mute:'#8fc7cd',pink:'#06b6d4',violet:'#0ea5e9',b1:['#06b6d4','#0ea5e9'],b2:['#0891b2','#22d3ee'],b3:['#0d9488','#14b8a6'],prev:'#02181c'},
+ {name:'Cherry Red',desc:'Bold red',bg:'#170404',card:'#2a0a0a',text:'#fef2f2',mute:'#e5a0a0',pink:'#ef4444',violet:'#dc2626',b1:['#ef4444','#dc2626'],b2:['#b91c1c','#f87171'],b3:['#991b1b','#ef4444'],prev:'#170404'},
+ {name:'Barbie Pink',desc:'Cute pink',bg:'#1e0714',card:'#331026',text:'#fdf2f8',mute:'#f0a6d1',pink:'#ff4fc3',violet:'#ff8ae2',b1:['#ff4fc3','#ff8ae2'],b2:['#e879f9','#f472b6'],b3:['#fb7185','#fda4af'],prev:'#1e0714'},
 ];
-function applyTheme(i){
-  var t=THEMES[i]; var r=document.documentElement.style;
-  r.setProperty('--bg',t.bg); r.setProperty('--card',t.card); r.setProperty('--text',t.text); r.setProperty('--mute',t.mute);
-  r.setProperty('--pink',t.pink); r.setProperty('--violet',t.violet);
-  r.setProperty('--b1a',t.b1[0]); r.setProperty('--b1b',t.b1[1]); r.setProperty('--b2a',t.b2[0]); r.setProperty('--b2b',t.b2[1]); r.setProperty('--b3a',t.b3[0]); r.setProperty('--b3b',t.b3[1]);
+function toast(m){var e=document.getElementById('toast');e.textContent=m;e.style.display='block';setTimeout(function(){e.style.display='none'},1800)}
+function applyTheme(i, silent){
+  var t=THEMES[i], r=document.documentElement.style;
+  r.setProperty('--bg',t.bg);r.setProperty('--card',t.card);r.setProperty('--text',t.text);r.setProperty('--mute',t.mute);r.setProperty('--pink',t.pink);r.setProperty('--violet',t.violet);
+  r.setProperty('--b1a',t.b1[0]);r.setProperty('--b1b',t.b1[1]);r.setProperty('--b2a',t.b2[0]);r.setProperty('--b2b',t.b2[1]);r.setProperty('--b3a',t.b3[0]);r.setProperty('--b3b',t.b3[1]);
   document.body.style.background='radial-gradient(120% 60% at 50% 0,'+t.violet+'33 0,'+t.bg+' 60%) no-repeat,'+t.bg;
   document.querySelector('meta[name="theme-color"]').content=t.bg;
-  try{localStorage.setItem('amelia_theme',String(i));}catch(e){}
-  document.querySelectorAll('.themeBtn').forEach(function(b,idx){b.classList.toggle('active',idx===i)});
-  showToast(t.name+' Applied ✨');
+  try{localStorage.setItem('amelia_theme',String(i))}catch(e){}
+  document.querySelectorAll('.themeCard').forEach(function(c,idx){c.classList.toggle('active',idx===i);var b=c.querySelector('.pickBtn');if(b)b.classList.toggle('active',idx===i);if(b)b.textContent=idx===i?'✅ Selected':'🖼️ Select'});
+  if(!silent) toast(t.name+' Applied ✨');
 }
-function showToast(msg){var el=document.getElementById('toast');el.textContent=msg;el.style.display='block';setTimeout(function(){el.style.display='none'},1800);}
-// Build theme buttons
+// Theme grid
 var grid=document.getElementById('themeGrid');
 THEMES.forEach(function(t,i){
-  var b=document.createElement('button'); b.className='themeBtn'; b.style.background='linear-gradient(100deg,'+t.b1[0]+','+t.b2[0]+')';
-  b.innerHTML='<b>'+t.name+'</b><small>Tap to preview</small><span class="dots"><i style="background:'+t.b1[0]+'"></i><i style="background:'+t.b2[0]+'"></i><i style="background:'+t.b3[0]+'"></i></span>';
-  b.onclick=function(){applyTheme(i); updateStats();};
-  grid.appendChild(b);
+  var d=document.createElement('div');d.className='themeCard';
+  d.innerHTML='<span class="themeNum">'+(i+1)+'</span><div class="themePreview" style="background:'+t.prev+'"><i style="background:'+t.b1[0]+'"></i><i style="background:'+t.b2[0]+'"></i></div><b>'+t.name+'</b><small>'+t.desc+'</small><button class="pickBtn">🖼️ Select</button>';
+  d.querySelector('.pickBtn').onclick=function(){applyTheme(i)};
+  grid.appendChild(d);
+});
+// Tabs
+document.querySelectorAll('.tab').forEach(function(tab){
+  tab.onclick=function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});tab.classList.add('active');
+    ['themes','ads','visitors'].forEach(function(k){document.getElementById('tab-'+k).style.display=(k===tab.dataset.tab?'block':'none')});
+  }
 });
 // Visits
-function todayKey(){var d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function fmtDate(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function getNum(k){try{return parseInt(localStorage.getItem(k)||'0')||0}catch(e){return 0}}
-function updateStats(){
-  var tk='visit_'+todayKey(); var today=getNum(tk); var total=getNum('visit_total');
-  document.getElementById('dailyCount').textContent=today;
-  document.getElementById('statToday').textContent=today;
-  document.getElementById('statTotal').textContent=total;
+function updateVisitors(){
+  var today=fmtDate(new Date()); var tv=getNum('visit_'+today); var ads=getNum('adsview_'+today);
+  document.getElementById('dailyCount').textContent=tv;
+  document.getElementById('statToday').textContent=tv;
+  document.getElementById('statAdsToday').textContent=ads;
   document.getElementById('todayLabel').textContent='Today • '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  var list=document.getElementById('last7List'); list.innerHTML='';
+  for(var i=0;i<7;i++){var d=new Date();d.setDate(d.getDate()-i);var k=fmtDate(d);var label=i===0?'Today':k;var v=getNum('visit_'+k);var a=getNum('adsview_'+k);
+    var row=document.createElement('div');row.className='row7';row.innerHTML='<span>'+label+'</span><span>👤 '+v+' Visit &nbsp; 👁️ '+a+' Ads View</span>';list.appendChild(row);}
 }
 try{
-  var tk='visit_'+todayKey();
-  if(!sessionStorage.getItem('counted_'+tk)){ localStorage.setItem(tk,String(getNum(tk)+1)); localStorage.setItem('visit_total',String(getNum('visit_total')+1)); sessionStorage.setItem('counted_'+tk,'1'); }
+  var tk='visit_'+fmtDate(new Date());
+  if(!sessionStorage.getItem('counted_'+tk)){localStorage.setItem(tk,String(getNum(tk)+1));localStorage.setItem('visit_total',String(getNum('visit_total')+1));sessionStorage.setItem('counted_'+tk,'1');}
+  // Simulate ads view when a main button is clicked - counted in Ads tab logic too
 }catch(e){}
-updateStats();
-// Load saved theme
-try{var saved=localStorage.getItem('amelia_theme'); if(saved!==null) applyTheme(parseInt(saved));}catch(e){}
-// Load saved links
-try{
-  var sL1=localStorage.getItem('amelia_l1'), sL2=localStorage.getItem('amelia_l2'), sL3=localStorage.getItem('amelia_l3'), sBio=localStorage.getItem('amelia_bio');
-  if(sL1) CFG.l1=sL1; if(sL2) CFG.l2=sL2; if(sL3) CFG.l3=sL3; if(sBio) CFG.bio=sBio;
-  document.getElementById('bio').textContent=CFG.bio;
-  document.getElementById('l1').href=CFG.l1; document.getElementById('l2').href=CFG.l2; document.getElementById('l3').href=CFG.l3;
-}catch(e){}
-// Secret Admin: 5 taps in 10 sec on lock
+updateVisitors();
+document.getElementById('refreshVis').onclick=function(){updateVisitors();toast('Refreshed 🔄')};
+// Ads
+var adsDefault=[
+ {on:true,type:'Direct Link',name:'New Ad',code:'https://tinyurl.com/5jtbty5e',note:'This link will be used in Unlock Task (will not show separately on site)'},
+ {on:true,type:'Popunder',name:'Popunder',code:'<script data-cfasync="false" src="https://aarems.org/1/fcba48f61b32153341476f71bdd01332"></script>',note:'Sticky (floats on screen, refreshes)'}
+];
+var ads=[];
+try{ads=JSON.parse(localStorage.getItem('amelia_ads')||'null')||adsDefault}catch(e){ads=adsDefault}
+function saveAds(){try{localStorage.setItem('amelia_ads',JSON.stringify(ads))}catch(e){}}
+function renderAds(){
+  var wrap=document.getElementById('adsList');wrap.innerHTML='';
+  ads.forEach(function(ad,idx){
+    var card=document.createElement('div');card.className='adCard';
+    card.innerHTML='<div class="adHead"><b>'+(idx+1)+'. '+ad.name+'</b><label class="switch"><input type="checkbox" '+(ad.on?'checked':'')+'><span class="slider"></span></label></div>'
+      +'<select><option '+(ad.type==='Direct Link'?'selected':'')+'>Direct Link</option><option '+(ad.type==='Popunder'?'selected':'')+'>Popunder</option><option '+(ad.type==='Banner'?'selected':'')+'>Banner</option><option '+(ad.type==='Sticky'?'selected':'')+'>Sticky</option></select>'
+      +'<input type="text" placeholder="Ad Name" value="'+ad.name.replace(/"/g,'')+'">'
+      +'<textarea placeholder="Ad Link / Code">'+ad.code+'</textarea>'
+      +'<div class="adNote">🔒 '+(ad.note||'This link will be used in Unlock Task')+'</div>'
+      +'<button class="delBtn">✕ Delete This</button>';
+    var inputs=card.querySelectorAll('select,input[type=text],textarea');
+    card.querySelector('input[type=checkbox]').onchange=function(){ad.on=this.checked;saveAds()};
+    inputs[0].onchange=function(){ad.type=this.value;saveAds()};
+    inputs[1].oninput=function(){ad.name=this.value;card.querySelector('.adHead b').textContent=(idx+1)+'. '+ad.name;saveAds()};
+    inputs[2].oninput=function(){ad.code=this.value;saveAds()};
+    card.querySelector('.delBtn').onclick=function(){if(confirm('Delete this ad?')){ads.splice(idx,1);saveAds();renderAds()}};
+    wrap.appendChild(card);
+  });
+}
+renderAds();
+document.getElementById('addAdBtn').onclick=function(){ads.push({on:true,type:'Direct Link',name:'New Ad '+(ads.length+1),code:'',note:'This link will be used in Unlock Task'});saveAds();renderAds();toast('New Ad Added ➕')};
+// Links (main page)
+var CFG={l1:'#',l2:'#',l3:'#'};
+try{var s1=localStorage.getItem('amelia_l1'),s2=localStorage.getItem('amelia_l2'),s3=localStorage.getItem('amelia_l3');if(s1)CFG.l1=s1;if(s2)CFG.l2=s2;if(s3)CFG.l3=s3;}catch(e){}
+document.getElementById('l1').href=CFG.l1;document.getElementById('l2').href=CFG.l2;document.getElementById('l3').href=CFG.l3;
+// Count Ads View on button click
+['l1','l2','l3'].forEach(function(id){document.getElementById(id).addEventListener('click',function(){try{var k='adsview_'+fmtDate(new Date());localStorage.setItem(k,String(getNum(k)+1));updateVisitors()}catch(e){}})});
+// Load theme
+try{var sv=localStorage.getItem('amelia_theme');if(sv!==null)applyTheme(parseInt(sv),true)}catch(e){}
+// Password + Secret
 var taps=[];
 document.getElementById('lockBtn').addEventListener('click',function(){
-  var now=Date.now(); taps.push(now); taps=taps.filter(function(t){return now-t<10000});
-  if(taps.length>=5){ taps=[]; openAdmin(); }
+  var now=Date.now();taps.push(now);taps=taps.filter(function(t){return now-t<10000});
+  if(taps.length>=5){taps=[];document.getElementById('passOverlay').classList.add('open');document.getElementById('passInput').value='';document.getElementById('passErr').style.display='none';setTimeout(function(){document.getElementById('passInput').focus()},100)}
 });
-function openAdmin(){
-  document.getElementById('inL1').value=CFG.l1==='#'?'':CFG.l1;
-  document.getElementById('inL2').value=CFG.l2==='#'?'':CFG.l2;
-  document.getElementById('inL3').value=CFG.l3==='#'?'':CFG.l3;
-  document.getElementById('inBio').value=CFG.bio;
-  updateStats();
-  document.getElementById('adminOverlay').classList.add('open');
-}
-document.getElementById('closeAdmin').onclick=function(){document.getElementById('adminOverlay').classList.remove('open')};
-document.getElementById('saveLinks').onclick=function(){
-  CFG.l1=document.getElementById('inL1').value||'#'; CFG.l2=document.getElementById('inL2').value||'#'; CFG.l3=document.getElementById('inL3').value||'#'; CFG.bio=document.getElementById('inBio').value||CFG.bio;
-  try{localStorage.setItem('amelia_l1',CFG.l1);localStorage.setItem('amelia_l2',CFG.l2);localStorage.setItem('amelia_l3',CFG.l3);localStorage.setItem('amelia_bio',CFG.bio);}catch(e){}
-  document.getElementById('bio').textContent=CFG.bio;
-  document.getElementById('l1').href=CFG.l1; document.getElementById('l2').href=CFG.l2; document.getElementById('l3').href=CFG.l3;
-  showToast('Saved Successfully ✅');
-};
+function tryPass(){var v=document.getElementById('passInput').value;if(v===PASSWORD){document.getElementById('passOverlay').classList.remove('open');document.getElementById('adminOverlay').classList.add('open');updateVisitors();toast('Welcome Admin 👑')}else{document.getElementById('passErr').style.display='block'}}
+document.getElementById('passGo').onclick=tryPass;
+document.getElementById('passInput').addEventListener('keydown',function(e){if(e.key==='Enter')tryPass()});
+document.getElementById('passCancel').onclick=function(){document.getElementById('passOverlay').classList.remove('open')};
+document.getElementById('goSite').onclick=function(){document.getElementById('adminOverlay').classList.remove('open')};
+document.getElementById('logoutBtn').onclick=function(){document.getElementById('adminOverlay').classList.remove('open');toast('Logged Out')};
+document.getElementById('saveAllTop').onclick=function(){saveAds();toast('Saved Successfully ✅')};
 </script>
 </body>
 </html>
